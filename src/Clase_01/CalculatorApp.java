@@ -25,7 +25,7 @@ public class CalculatorApp extends Application {
 
       Parent root = loader.load();
       var scene = new Scene(root);
-      stage.setTitle("Basic Calculator");
+      stage.setTitle("Calculadora Básica");
       stage.setScene(scene);
       stage.setResizable(false);
       stage.show();
