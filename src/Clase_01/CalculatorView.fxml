@@ -20,7 +20,7 @@
         <URL value="@styles.css"/>
     </stylesheets>
 
-    <Label text="Distributed Calculator" styleClass="title-label"/>
+    <Label text="Calculadora Básica" styleClass="title-label"/>
 
     <TextField fx:id="inputNumber1" promptText="First number" styleClass="number-input"/>
     <TextField fx:id="inputNumber2" promptText="Second number" styleClass="number-input"/>
