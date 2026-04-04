@@ -28,5 +28,5 @@ ejecutarlo.
 
 Desarrollado por:
 
-- **[Girón María Paula]** · EPN · 2026
-- **[Ortiz Josué]** · EPN · 2026
+- **Girón María Paula** · EPN · 2026
+- **Ortiz Josué** · EPN · 2026
