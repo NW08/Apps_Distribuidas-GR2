@@ -22,3 +22,7 @@ out/
 
 # Windows
 Thumbs.db
+
+# VSCode
+.vscode/
+*.code-workspace
