@@ -16,14 +16,6 @@ ejecutarlo.
 
 ---
 
-## Herramientas del curso
-
-- **Lenguaje:** Java 26 (Amazon Corretto)
-- **UI:** JavaFX 26 + SceneBuilder
-- **IDE:** IntelliJ IDEA
-
----
-
 ## Autores
 
 Desarrollado por:
