@@ -1,4 +1,4 @@
-package Clase_01.Calculator.model;
+package Clase_01.model;
 
 public class CalculatorModel implements ICalculatorModel {
 
