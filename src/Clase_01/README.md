@@ -67,7 +67,7 @@ Antes de empezar, asegúrate de tener instalado lo siguiente:
    ```
 
 4. **Ejecuta la aplicación**
-    - Corre la clase `CalculatorApp` (o la clase `Main` que llame a `CalculatorApp.launchApp(args)`)
+    - Corre la clase `CalculatorApp` (o la clase `Launcher` que llame a `CalculatorApp.launchApp(args)`)
 
 ---
 
