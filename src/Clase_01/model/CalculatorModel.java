@@ -19,9 +19,7 @@ public class CalculatorModel implements ICalculatorModel {
 
    @Override
    public double divide(double a, double b) {
-      if (b == 0) {
-         throw new IllegalArgumentException("No se puede dividir entre 0.");
-      }
+      if (b == 0) throw new IllegalArgumentException("División entre 0!!");
       return a / b;
    }
 }
