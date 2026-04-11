@@ -1,4 +1,4 @@
-# Calculadora Básica con JavaFX || `CLASE 01 (03|04|2026)`
+# Calculadora Básica con JavaFX || `CLASE 01 (01|04|2026)`
 
 Se hizo este proyecto cómo práctica e introducción de la materia de Aplicaciones Distribuidas en Java usando JavaFX.
 
