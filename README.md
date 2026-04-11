@@ -9,10 +9,11 @@ ejecutarlo.
 
 ## Proyectos
 
-| # | Carpeta                                | Descripción                                           | Tecnologías        |
-|---|----------------------------------------|-------------------------------------------------------|--------------------|
-| 1 | [`Calculadora Básica`](./src/Clase_01) | Calculadora básica de escritorio con arquitectura MVC | Java 26, JavaFX 26 |
-| — | *Próximamente*                         | Más proyectos se irán agregando a lo largo del curso  | —                  |
+| # | Nombre                                          | Descripción                                             | Tecnologías        |
+|---|-------------------------------------------------|---------------------------------------------------------|--------------------|
+| 1 | [`Calculadora Básica`](./src/Clase_01)          | Calculadora básica de escritorio con arquitectura MVC   | Java 26, JavaFX 26 |
+| 2 | [`Sistema de Facturas`](./src/Clase_02/Invoice) | Implementación & uso de `lombok` dentro de una clase    | Librería Lombok    |
+| 3 | [`Multihilos`](./src/Clase_02/Multithreads)     | División de tareas en procesos paralelos - concurrentes | Clase `Threads`    |
 
 ---
 
