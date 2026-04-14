@@ -17,7 +17,9 @@ public class Launcher {
          executor.submit(new CProcess(100));
          executor.submit(new DProcess());
          executor.submit(new EProcess());
+         executor.submit(new FProcess());
 
+         executor.shutdown();
 
          boolean finished = executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
          if (!finished) executor.shutdownNow();

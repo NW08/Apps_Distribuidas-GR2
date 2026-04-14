@@ -1,0 +1,70 @@
+/* Fondo de la ventana */
+.main-background {
+    -fx-background-color: #f4f6f8;
+}
+
+/* Tarjeta blanca central tipo Material Design */
+.card-container {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px;
+    -fx-padding: 30px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.08), 15, 0, 0, 4);
+}
+
+/* Tipografía */
+.title-label {
+    -fx-font-family: "Segoe UI", "Open Sans", sans-serif;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+    -fx-letter-spacing: 1px;
+}
+
+.subtitle-label {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #64748b;
+}
+
+.form-label {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #475569;
+}
+
+/* Inputs de texto limpios */
+.form-input {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 12px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #0f172a;
+}
+
+.form-input:focused {
+    -fx-border-color: #3b82f6;
+    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.2), 5, 0, 0, 0);
+}
+
+/* Botón elegante */
+.primary-button {
+    -fx-background-color: #1e293b;
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 40px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #334155;
+}
+
+.primary-button:pressed {
+    -fx-background-color: #0f172a;
+}

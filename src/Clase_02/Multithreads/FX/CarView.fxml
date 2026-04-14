@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="450.0"
+            prefWidth="550.0" styleClass="main-background"
+            stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21"
+            fx:controller="Clase_02.Multithreads.FX.CarController">
+
+    <VBox alignment="CENTER" spacing="20.0" styleClass="card-container"
+          AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="50.0"
+          AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="40.0">
+
+        <VBox alignment="CENTER" spacing="5.0">
+            <Label styleClass="title-label" text="ESFOTCAR"/>
+            <Label styleClass="subtitle-label" text="Registro de Nuevo Vehículo"/>
+        </VBox>
+
+        <GridPane alignment="CENTER" hgap="15.0" vgap="15.0">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" minWidth="80.0"/>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="200.0"/>
+            </columnConstraints>
+
+            <rowConstraints>
+                <RowConstraints minHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+
+            <Label styleClass="form-label" text="Código:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="txtCodigo" promptText="Ej. V-001" styleClass="form-input" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <Label styleClass="form-label" text="Marca:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="txtMarca" promptText="Ej. Toyota" styleClass="form-input" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+            <Label styleClass="form-label" text="Modelo:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <TextField fx:id="txtModelo" promptText="Ej. Corolla" styleClass="form-input" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+            <Label styleClass="form-label" text="Precio:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <TextField fx:id="txtPrecio" promptText="Ej. 25000.00" styleClass="form-input" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        </GridPane>
+
+        <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#handleSaveAction" styleClass="primary-button" text="GUARDAR">
+            <VBox.margin>
+                <Insets top="10.0"/>
+            </VBox.margin>
+        </Button>
+
+    </VBox>
+</AnchorPane>
