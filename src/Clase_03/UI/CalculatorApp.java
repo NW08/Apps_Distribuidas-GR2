@@ -27,7 +27,7 @@ public class CalculatorApp {
 
             Parent root = loader.load();
             Stage stage = new Stage();
-            stage.setTitle("Calculadora UDP - Cliente");
+            stage.setTitle("Calculator UDP");
             stage.setScene(new Scene(root));
             stage.setResizable(false);
 
