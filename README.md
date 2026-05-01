@@ -9,17 +9,17 @@ ejecutarlo.
 
 ## Proyectos
 
-| # | Nombre                                          | Descripción                                                                       | Tecnologías        |
-|---|-------------------------------------------------|-----------------------------------------------------------------------------------|--------------------|
-| 1 | [`Calculadora Básica`](./src/Clase_01)          | Calculadora básica de escritorio con arquitectura MVC                             | Java 26, JavaFX 26 |
-| 2 | [`Sistema de Facturas`](./src/Clase_02/Invoice) | Sistema de facturación básica implementando `lombok`                              | Librería Lombok    |
-| 3 | [`Multihilos`](./src/Clase_02/Multithreads)     | División de tareas en procesos paralelos - concurrentes                           | Clase `Threads`    |
-| 4 | [`Servidor UDP`](./src/Clase_03)                | Calculadora básica evolucionada a la arquitectura cliente - servidor mediante UDP | Protocolo UDP      |
+| # | Nombre                                          | Descripción                                             | Tecnologías        |
+|---|-------------------------------------------------|---------------------------------------------------------|--------------------|
+| 1 | [`Calculadora Básica`](./src/Clase_01)          | Calculadora básica de escritorio con arquitectura MVC   | Java 26, JavaFX 26 |
+| 2 | [`Sistema de Facturas`](./src/Clase_02/Invoice) | Sistema de facturación básica implementando `lombok`    | Librería Lombok    |
+| 3 | [`Multihilos`](./src/Clase_02/Multithreads)     | División de tareas en procesos paralelos o concurrentes | Clase `Threads`    |
+| 4 | [`Servidor UDP`](./src/Clase_03)                | Calculadora básica con arquitectura cliente - servidor  | Protocolo UDP      |
 
 ---
 
 ## Autores
- 
+
 Desarrollado por:
 
-- **Ortiz Josué** · EPN · Periodo 26A
+- **Ortiz Josué** · EPN · Periodo 2026A
