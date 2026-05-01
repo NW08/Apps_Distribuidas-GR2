@@ -21,4 +21,4 @@ ejecutarlo.
 
 Desarrollado por:
 
-- **Ortiz Josué** · EPN · 2026
+- **Ortiz Josué** · EPN · Periodo 26A
