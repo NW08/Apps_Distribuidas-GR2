@@ -13,6 +13,8 @@ public class CarController {
 
    private final ICarModel model;
    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+
+
    @FXML
    private TextField txtCodigo;
    @FXML
@@ -65,19 +67,28 @@ public class CarController {
    private void saveCarAsync(Car car) {
       try {
          model.saveCar(car);
-
          Platform.runLater(() -> {
             showAlert(Alert.AlertType.INFORMATION, "Éxito", "Vehículo guardado correctamente.");
             resetForm();
+            restoreButton();
          });
       } catch (InterruptedException e) {
          Thread.currentThread().interrupt();
-      } finally {
          Platform.runLater(() -> {
-            btnGuardar.setDisable(false);
-            btnGuardar.setText("GUARDAR");
+            showAlert(Alert.AlertType.ERROR, "Operación cancelada", "El guardado fue interrumpido.");
+            restoreButton();
+         });
+      } catch (Exception e) {
+         Platform.runLater(() -> {
+            showAlert(Alert.AlertType.ERROR, "Error inesperado", e.getMessage());
+            restoreButton();
          });
       }
+   }
+
+   private void restoreButton() {
+      btnGuardar.setDisable(false);
+      btnGuardar.setText("GUARDAR");
    }
 
    private void resetForm() {
@@ -100,6 +111,4 @@ public class CarController {
    public void shutdown() {
       executor.shutdown();
    }
-
-
 }

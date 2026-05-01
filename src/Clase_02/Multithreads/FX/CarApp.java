@@ -1,39 +1,37 @@
 package Clase_02.Multithreads.FX;
 
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class CarApp extends Application {
-   public static void launchApp(String[] args) {
-      launch(args);
-   }
+public class CarApp {
 
-   @Override
-   public void start(Stage stage) throws Exception {
-      ICarModel model = new CarModel();
-      var loader = new FXMLLoader(getClass().getResource("CarView.fxml"));
+   public static void openWindow() {
+      JavaFXManager.runOnFxThread(() -> {
+         try {
+            ICarModel model = new CarModel();
+            var loader = new FXMLLoader(CarApp.class.getResource("CarView.fxml"));
 
-      loader.setControllerFactory(controllerClass -> {
-         if (controllerClass == CarController.class)
-            return new CarController(model);
-         throw new IllegalStateException(
-               "Unexpected Controller Class: " + controllerClass
-         );
+            loader.setControllerFactory(cls -> {
+               if (cls == CarController.class) return new CarController(model);
+               throw new IllegalStateException("Unexpected controller: " + cls);
+            });
+
+            Parent root = loader.load();
+            CarController controller = loader.getController();
+
+            Stage stage = new Stage();
+            stage.setTitle("App EsfotCar");
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.setOnCloseRequest(_ -> controller.shutdown());
+            stage.show();
+
+         } catch (Exception e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Error al abrir CarApp", e);
+         }
       });
-
-      Parent root = loader.load();
-      CarController controller = loader.getController();
-
-      var scene = new Scene(root);
-      stage.setTitle("App EsfotCar");
-      stage.setScene(scene);
-      stage.setResizable(false);
-
-      stage.setOnCloseRequest(_ -> controller.shutdown());
-
-      stage.show();
    }
 }
