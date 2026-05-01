@@ -1,12 +1,13 @@
 package Clase_02.Multithreads.FX;
 
 import javafx.application.Platform;
+import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class JavaFXManager {
    private static final AtomicBoolean initialized = new AtomicBoolean(false);
    private static final CountDownLatch latch = new CountDownLatch(1);
