@@ -1,29 +1,24 @@
 package Clase_02.Multithreads;
 
+import Clase_02.Multithreads.FX.JavaFXManager;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class Launcher {
-   private static final int THREAD_POOL_SIZE = 5;
-   private static final long TIMEOUT_SECONDS = 30;
+   private static final int THREAD_POOL_SIZE = 4;
 
    static void main() throws InterruptedException {
+      JavaFXManager.startup();
 
       try (ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE)) {
-
          executor.submit(new AProcess());
          executor.submit(new BProcess());
          executor.submit(new CProcess(100));
-         executor.submit(new DProcess());
          executor.submit(new EProcess());
-         executor.submit(new FProcess());
-
-         executor.shutdown();
-
-         boolean finished = executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
-         if (!finished) executor.shutdownNow();
-
       }
+
+      JavaFXManager.runOnFxThread(() -> new DProcess().run());
+      JavaFXManager.runOnFxThread(() -> new FProcess().run());
    }
 }

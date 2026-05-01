@@ -1,6 +1,8 @@
 package Clase_02.Multithreads;
 
 public class CProcess implements Runnable {
+   private static final int LOOP_START = 25;
+   private static final int LOOP_END = -2;
    private final int numerator;
 
    public CProcess(int numerator) {
@@ -9,13 +11,15 @@ public class CProcess implements Runnable {
 
    @Override
    public void run() {
-      StringBuilder result = new StringBuilder();
+      StringBuilder result = new StringBuilder("División de ")
+            .append(numerator)
+            .append(": ");
 
-      for (int i = 25; i >= -2; i--) {
+      for (int i = LOOP_START; i >= LOOP_END; i--) {
          try {
             result.append(numerator / i).append(" ");
          } catch (ArithmeticException e) {
-            result.append("[∞] ");
+            result.append("[÷0] ");
          }
       }
 
