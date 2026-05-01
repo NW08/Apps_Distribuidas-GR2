@@ -15,7 +15,7 @@ public class CalculatorApp {
    public void start() {
       JavaFXManager.runOnFxThread(() -> {
          try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CalculatorView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("view/CalculatorView.fxml"));
 
             Client udpClient = new Client();
 
