@@ -1,4 +1,4 @@
-package Clase_03.Client.controller;
+package Clase_03.UI.controller;
 
 import Clase_03.Client.Client;
 import javafx.application.Platform;
