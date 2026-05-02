@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketTimeoutException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -17,14 +18,14 @@ public class Server {
    private static final int TIMEOUT_MS = 10000;
 
    private final Calculator calculator;
-   private boolean isRunning = true;
+   private final AtomicBoolean isRunning = new AtomicBoolean(true);
 
    public void start(int port) {
       try (DatagramSocket socket = new DatagramSocket(port)) {
          socket.setSoTimeout(TIMEOUT_MS);
          log.info("UDP Server Listening: {}", port);
 
-         while (isRunning) {
+         while (isRunning.get()) {
             receiveAndProcessPacket(socket);
          }
       } catch (IOException e) {
@@ -92,7 +93,7 @@ public class Server {
    }
 
    public void stop() {
-      this.isRunning = false;
+      isRunning.compareAndSet(true, false);
       log.info("Server Stop Requested!");
    }
 }
