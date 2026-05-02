@@ -2,9 +2,8 @@ package Clase_03.Client;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
+import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
@@ -16,8 +15,8 @@ public class Client {
    public CompletableFuture<String> sendRequestAsync(
          String serverIP,
          int port,
-         double number_one,
-         double number_two,
+         double numberOne,
+         double numberTwo,
          String operation
    ) {
       return CompletableFuture.supplyAsync(() -> {
@@ -25,8 +24,8 @@ public class Client {
             socket.setSoTimeout(TIMEOUT_MS);
             InetAddress serverAddress = InetAddress.getByName(serverIP);
 
-            String requestPayload = String.format("%s,%s,%s", number_one, number_two, operation);
-            byte[] requestData = requestPayload.getBytes();
+            String requestPayload = String.format("%s,%s,%s", numberOne, numberTwo, operation);
+            byte[] requestData = requestPayload.getBytes(StandardCharsets.UTF_8);
             DatagramPacket requestPacket = new DatagramPacket(requestData, requestData.length, serverAddress, port);
 
             log.debug("Sending payload to server: {}", requestPayload);
@@ -37,6 +36,14 @@ public class Client {
             socket.receive(incomingPacket);
 
             return new String(incomingPacket.getData(), 0, incomingPacket.getLength()).trim();
+
+         } catch (SocketTimeoutException e) {
+            log.trace("Waiting for packets...");
+            return "ERROR: Timed out";
+
+         } catch (UnknownHostException e) {
+            log.error("Unknown server IP: {}", serverIP);
+            throw new RuntimeException("Invalid server IP", e);
 
          } catch (Exception e) {
             log.error("Network error communicating with server: {}", e.getMessage());
