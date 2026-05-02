@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<Pane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="400.0"
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/25" fx:controller="Clase_04.UI.UserController">
+    <Label alignment="CENTER" layoutX="216.0" layoutY="71.0" prefHeight="17.0" prefWidth="181.0" text="Ingrese la Cédula"
+           textAlignment="CENTER" wrapText="true">
+        <font>
+            <Font name="System Bold Italic" size="12.0"/>
+        </font>
+    </Label>
+    <Button layoutX="157.0" layoutY="262.0" mnemonicParsing="false" onAction="#searchUser" text="Buscar Usuario"/>
+    <Button layoutX="335.0" layoutY="262.0" mnemonicParsing="false" onAction="#goToRegistro" text="Registrar Usuario" textFill="#0a1fe4">
+        <font>
+            <Font name="System Bold" size="12.0"/>
+        </font>
+    </Button>
+    <TextField fx:id="lbCedulaEnter" layoutX="197.0" layoutY="158.0" prefHeight="25.0" prefWidth="219.0"/>
+    <Label fx:id="lblWarning" alignment="CENTER" layoutX="194.0" layoutY="218.0" textAlignment="CENTER" textFill="RED"/>
+</Pane>

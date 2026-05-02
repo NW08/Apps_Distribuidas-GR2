@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.Pane?>
+<Pane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="400.0"
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/25" fx:controller="Clase_04.UI.UserController">
+    <TextField fx:id="lbNombreEnter" layoutX="254.0" layoutY="86.0" prefHeight="25.0" prefWidth="159.0"/>
+    <TextField fx:id="lbCedulaEnterRegistro" layoutX="254.0" layoutY="142.0" prefHeight="25.0" prefWidth="159.0"/>
+    <TextField fx:id="lbCorreoEnter" layoutX="254.0" layoutY="200.0" prefHeight="25.0" prefWidth="159.0"/>
+    <TextField fx:id="lbPreferencialEnter" layoutX="254.0" layoutY="256.0" prefHeight="25.0" prefWidth="159.0"/>
+    <Label layoutX="138.0" layoutY="90.0" prefHeight="17.0" prefWidth="69.0" text="Nombre:"/>
+    <Label layoutX="139.0" layoutY="145.0" prefHeight="17.0" prefWidth="69.0" text="Cédula:"/>
+    <Label layoutX="138.0" layoutY="204.0" prefHeight="17.0" prefWidth="69.0" text="Correo:"/>
+    <Label layoutX="138.0" layoutY="260.0" prefHeight="17.0" prefWidth="82.0" text="Preferencial:"/>
+    <Button layoutX="393.0" layoutY="327.0" mnemonicParsing="false" onAction="#crearUsuario" text="Crear Usuario"/>
+</Pane>
