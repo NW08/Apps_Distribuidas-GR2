@@ -1,13 +1,15 @@
 package Clase_05.Correction.Server.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
+@Builder(toBuilder = true)
 public class Card {
    public static final BigDecimal TICKET_PRICE = new BigDecimal("0.35");
-
+   public static final BigDecimal TICKET_PRICE_PREFERRED = new BigDecimal("0.17");
    private Long id;
    private Long userID;
    private BigDecimal balance = BigDecimal.ZERO;
@@ -17,8 +19,10 @@ public class Card {
       this.balance = this.balance.add(amount);
    }
 
-   public void payTicket() {
-      if (this.balance.compareTo(TICKET_PRICE) < 0) throw new IllegalStateException("Insufficient balance to pay ticket.");
-      this.balance = this.balance.subtract(TICKET_PRICE);
+   public void payTicket(boolean isPreferred) {
+      BigDecimal price = isPreferred ? TICKET_PRICE_PREFERRED : TICKET_PRICE;
+      if (this.balance.compareTo(price) < 0)
+         throw new IllegalStateException("Insufficient balance. Required: $" + price + ", Available: $" + this.balance);
+      this.balance = this.balance.subtract(price);
    }
 }

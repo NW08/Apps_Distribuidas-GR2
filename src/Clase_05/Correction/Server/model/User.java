@@ -11,7 +11,7 @@ import java.time.Period;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Builder(toBuilder = true)
 public class User {
    private final static int MIN_AGE = 60;
 
