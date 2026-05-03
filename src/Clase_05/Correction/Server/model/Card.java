@@ -10,8 +10,11 @@ import java.math.BigDecimal;
 public class Card {
    public static final BigDecimal TICKET_PRICE = new BigDecimal("0.35");
    public static final BigDecimal TICKET_PRICE_PREFERRED = new BigDecimal("0.17");
+
    private Long id;
    private Long userID;
+
+   @Builder.Default
    private BigDecimal balance = BigDecimal.ZERO;
 
    public void chargeCard(BigDecimal amount) {
