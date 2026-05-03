@@ -1,3 +1,5 @@
+CREATE DATABASE test;
+
 USE test;
 
 -- Entidad Client

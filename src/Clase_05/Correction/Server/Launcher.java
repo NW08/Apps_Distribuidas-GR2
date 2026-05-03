@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Launcher {
-
    private static final int SERVER_PORT = 7541;
 
    static void main() {
