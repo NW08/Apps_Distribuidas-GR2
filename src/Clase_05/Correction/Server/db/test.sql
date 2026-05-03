@@ -4,11 +4,12 @@ USE test;
 CREATE TABLE client
 (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
-    identity_card VARCHAR(10) NOT NULL,
+    identity_card VARCHAR(10)  NOT NULL UNIQUE,
+    first_name    VARCHAR(50)  NOT NULL,
+    last_name     VARCHAR(50)  NOT NULL,
+    email         VARCHAR(255) NOT NULL UNIQUE,
     phone         VARCHAR(10) DEFAULT NULL,
-    first_name    VARCHAR(50) NOT NULL,
-    last_name     VARCHAR(50) NOT NULL,
-    birthday      DATE        NOT NULL
+    birthday      DATE         NOT NULL
 );
 
 -- Entidad Card (Relación 1:1)
