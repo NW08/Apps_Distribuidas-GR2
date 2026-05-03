@@ -16,7 +16,8 @@ siguiente:
 
         - Crear la clase Tarjeta, con los métodos:
             - asignarTarjeta(Usuario usuario)
-            - cargarSaldo(double saldo), pagarPasaje()
+            - cargarSaldo(double saldo)
+            - pagarPasaje()
 
     - Test:
         - Crear una clase Test para verificar que el servidor se ejecuta sin problemas.
