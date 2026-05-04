@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @Data
 @Builder(toBuilder = true)
 public class Card {
-   public static final BigDecimal TICKET_PRICE = new BigDecimal("0.35");
+   public static final BigDecimal TICKET_PRICE = new BigDecimal("0.45");
    public static final BigDecimal TICKET_PRICE_PREFERRED = new BigDecimal("0.17");
 
    private Long id;

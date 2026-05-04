@@ -21,10 +21,10 @@ public class User {
    private String lastName;
    private String email;
    private String phone;
-   private LocalDate birthDate;
+   private LocalDate birthday;
 
    public boolean isPreferred() {
-      if (birthDate == null) return false;
-      return Period.between(birthDate, LocalDate.now()).getYears() >= MIN_AGE;
+      if (birthday == null) return false;
+      return Period.between(birthday, LocalDate.now()).getYears() >= MIN_AGE;
    }
 }
