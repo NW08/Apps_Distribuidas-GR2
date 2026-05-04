@@ -3,6 +3,7 @@ package Clase_05.Correction.Server;
 import Clase_05.Correction.Server.model.User;
 import Clase_05.Correction.Server.services.CardService;
 import Clase_05.Correction.Server.services.RegistrationService;
+import Clase_05.Correction.Server.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,15 +24,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Slf4j
 @RequiredArgsConstructor
 public class Server {
-
    private static final int BUFFER_SIZE = 1024;
    private static final int TIMEOUT_MS = 10000;
 
    private final CardService cardService;
    private final RegistrationService registrationService;
+   private final UserService userService;
 
    private final AtomicBoolean isRunning = new AtomicBoolean(true);
-
    private final ExecutorService dbExecutor = Executors.newVirtualThreadPerTaskExecutor();
 
    public void start(int port) {
@@ -54,9 +54,8 @@ public class Server {
          byte[] buffer = new byte[BUFFER_SIZE];
          DatagramPacket clientPacket = new DatagramPacket(buffer, buffer.length);
 
-         socket.receive(clientPacket); // bloquea solo mientras espera paquetes
+         socket.receive(clientPacket);
 
-         // Captura inmutable de los datos del paquete antes de cederlos al hilo async
          String receivedData = new String(clientPacket.getData(), 0, clientPacket.getLength(),
                StandardCharsets.UTF_8).trim();
          InetAddress clientAddress = clientPacket.getAddress();
@@ -64,7 +63,6 @@ public class Server {
 
          log.debug("Received payload from {}: {}", clientAddress, receivedData);
 
-         // DB work corre en virtual thread — el loop del servidor no se bloquea
          CompletableFuture
                .supplyAsync(() -> processRequest(receivedData), dbExecutor)
                .thenAccept(response -> {
@@ -91,14 +89,12 @@ public class Server {
          String[] dataParts = payload.split("\\|");
          String operation = dataParts[0].trim().toUpperCase();
 
-         // Switch expression moderno. Retorna directamente el String de respuesta.
          return switch (operation) {
-
             case "SEARCH" -> {
                // Esperado: SEARCH|userId
-               Long userId = Long.parseLong(dataParts[1].trim());
-               BigDecimal balance = cardService.getBalance(userId);
-               yield "SUCCESS|" + balance.toString();
+               String userId = dataParts[1].trim();
+               User user = userService.getUser(userId);
+               yield "SUCCESS|" + user.toString();
             }
 
             case "CREATE" -> {
@@ -110,16 +106,16 @@ public class Server {
                      .lastName(dataParts[3].trim())
                      .email(dataParts[4].trim())
                      .phone(dataParts[5].trim())
-                     .birthDate(LocalDate.parse(dataParts[6].trim())) // Requiere formato YYYY-MM-DD
+                     .birthday(LocalDate.parse(dataParts[6].trim()))
                      .build();
 
                User registeredUser = registrationService.registerNewUser(newUser);
-               yield "SUCCESS|" + registeredUser.getId(); // Devolvemos el ID generado al cliente
+               yield "SUCCESS|" + registeredUser.getId();
             }
 
             case "RECHARGE" -> {
                // Esperado: RECHARGE|userId|amount
-               Long userId = Long.parseLong(dataParts[1].trim());
+               String userId = dataParts[1].trim();
                BigDecimal amount = new BigDecimal(dataParts[2].trim());
                BigDecimal newBalance = cardService.rechargeCard(userId, amount);
                yield "SUCCESS|" + newBalance.toString();
@@ -127,10 +123,9 @@ public class Server {
 
             case "PAY" -> {
                // Esperado: PAY|userId
-               Long userId = Long.parseLong(dataParts[1].trim());
+               String userId = dataParts[1].trim();
                BigDecimal newBalance = cardService.processPayment(userId);
                yield "SUCCESS|" + newBalance.toString();
-
             }
 
             default -> "ERROR|Unknown Operator: " + operation;
@@ -169,7 +164,7 @@ public class Server {
    private void validateCreatePayload(String[] parts) {
       if (!parts[4].trim().contains("@"))
          throw new IllegalArgumentException("Invalid email format.");
-      if (parts[5].trim().length() < 7)
+      if (parts[5].trim().length() != 10)
          throw new IllegalArgumentException("Invalid phone number.");
    }
 }

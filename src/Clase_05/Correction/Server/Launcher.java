@@ -5,6 +5,7 @@ import Clase_05.Correction.Server.repository.CardRepository;
 import Clase_05.Correction.Server.repository.UserRepository;
 import Clase_05.Correction.Server.services.CardService;
 import Clase_05.Correction.Server.services.RegistrationService;
+import Clase_05.Correction.Server.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -15,10 +16,11 @@ public class Launcher {
       CardRepository cardRepository = new CardRepository();
       UserRepository userRepository = new UserRepository();
 
+      UserService userService = new UserService(userRepository);
       CardService cardService = new CardService(cardRepository, userRepository);
       RegistrationService registrationService = new RegistrationService(userRepository, cardRepository);
 
-      Server server = new Server(cardService, registrationService);
+      Server server = new Server(cardService, registrationService, userService);
 
       Runtime.getRuntime().addShutdownHook(new Thread(() -> {
          log.info("Shutdown signal received. Stopping server gracefully...");
