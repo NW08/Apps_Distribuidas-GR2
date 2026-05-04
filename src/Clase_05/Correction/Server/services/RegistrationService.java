@@ -14,7 +14,6 @@ import java.sql.SQLException;
 @Slf4j
 @RequiredArgsConstructor
 public class RegistrationService {
-
    private final UserRepository userRepository;
    private final CardRepository cardRepository;
 
