@@ -9,7 +9,6 @@ import java.util.Optional;
 
 @Slf4j
 public class CardRepository {
-
    private static final String SQL_INSERT = "INSERT INTO card (client_id, balance) VALUES (?, ?)";
    private static final String SQL_FIND = "SELECT id, client_id, balance FROM card WHERE client_id = ?";
    private static final String SQL_UPDATE = "UPDATE card SET balance = ? WHERE id = ?";
@@ -21,40 +20,33 @@ public class CardRepository {
          stmt.setBigDecimal(2, card.getBalance());
 
          int affectedRows = stmt.executeUpdate();
-         if (affectedRows == 0) {
-            throw new SQLException("Creating card failed, no rows affected.");
-         }
+         if (affectedRows == 0) throw new SQLException("Creating card failed, no rows affected.");
 
          long generatedId = extractGeneratedKey(stmt);
-
          Card savedCard = card.toBuilder()
                .id(generatedId)
                .build();
 
          log.info("Card created successfully for user ID: {} with card ID: {}", savedCard.getUserID(), savedCard.getId());
-
       } catch (SQLException e) {
          log.error("Error saving card for user ID {}: {}", card.getUserID(), e.getMessage(), e);
          throw new RuntimeException("Database error saving card", e);
       }
    }
 
-   public Optional<Card> findByUserId(Long userId) {
+   public Optional<Card> findByUserId(String userId) {
       try (Connection conn = DatabaseConfig.getConnection();
            PreparedStatement stmt = conn.prepareStatement(SQL_FIND)) {
 
-         stmt.setLong(1, userId);
+         stmt.setString(1, userId);
 
          try (ResultSet rs = stmt.executeQuery()) {
-            if (rs.next()) {
-               return Optional.of(mapRow(rs));
-            }
+            if (rs.next()) return Optional.of(mapRow(rs));
          }
       } catch (SQLException e) {
          log.error("Error finding card for user ID {}: {}", userId, e.getMessage(), e);
          throw new RuntimeException("Database error finding card", e);
       }
-
       return Optional.empty();
    }
 
@@ -66,12 +58,9 @@ public class CardRepository {
          stmt.setLong(2, card.getId());
 
          int affectedRows = stmt.executeUpdate();
-         if (affectedRows == 0) {
-            throw new SQLException("Updating balance failed — card ID not found: " + card.getId());
-         }
+         if (affectedRows == 0) throw new SQLException("Updating balance failed — card ID not found: " + card.getId());
 
          log.debug("Balance updated for card ID: {}. New balance: {}", card.getId(), card.getBalance());
-
       } catch (SQLException e) {
          log.error("Error updating balance for card ID {}: {}", card.getId(), e.getMessage(), e);
          throw new RuntimeException("Database error updating balance", e);
