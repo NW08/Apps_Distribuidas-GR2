@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import java.net.URL?>
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/25"
+      fx:controller="Clase_05.Correction.Client.UI.controller.SearchViewController"
+      alignment="CENTER"
+      spacing="25.0"
+      prefHeight="600.0"
+      prefWidth="600.0"
+      styleClass="main-background">
+
+    <stylesheets>
+        <URL value="@styles.css"/>
+    </stylesheets>
+
+    <VBox alignment="CENTER" spacing="5.0">
+        <Label text="SISTEMA METROPOLITANO DE TRANSPORTE" styleClass="header-subtitle"/>
+        <Label text="Gestión de Tarjetas" styleClass="header-title"/>
+        <Label text="Cliente UDP" styleClass="udp-badge"/>
+    </VBox>
+
+    <VBox alignment="CENTER" spacing="20.0" styleClass="content-card" maxWidth="450.0">
+        <Label text="Ingresa tu número de cédula:" styleClass="prompt-label"/>
+
+        <TextField fx:id="txt_field_identification"
+                   promptText="Ej: 1712345678"
+                   styleClass="input-field"
+                   maxWidth="320.0"/>
+
+        <Label fx:id="lbl_query_result"
+               styleClass="result-label"
+               wrapText="true"
+               textAlignment="CENTER"/>
+
+        <HBox alignment="CENTER" spacing="15.0" styleClass="action-bar">
+            <Button mnemonicParsing="false" onAction="#searchUser" text="BUSCAR" styleClass="btn-primary"/>
+            <Button mnemonicParsing="false" onAction="#registerUser" text="NUEVO USUARIO" styleClass="btn-secondary"/>
+        </HBox>
+    </VBox>
+
+</VBox>

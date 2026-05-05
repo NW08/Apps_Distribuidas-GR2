@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/26"
+      fx:controller="Clase_05.Correction.Client.UI.controller.ShowViewController"
+      alignment="CENTER"
+      spacing="20.0"
+      prefHeight="600.0"
+      prefWidth="600.0"
+      styleClass="main-background">
+
+    <stylesheets>
+        <URL value="@styles.css"/>
+    </stylesheets>
+
+    <VBox alignment="CENTER" spacing="5.0">
+        <Label text="SISTEMA METROPOLITANO DE TRANSPORTE" styleClass="header-subtitle"/>
+        <Label text="Perfil y Saldo" styleClass="header-title"/>
+    </VBox>
+
+    <VBox alignment="TOP_CENTER" spacing="25.0" styleClass="content-card" maxWidth="450.0">
+
+        <VBox alignment="CENTER" spacing="5.0" styleClass="balance-container">
+            <Label text="SALDO DISPONIBLE" styleClass="balance-subtitle"/>
+            <Label fx:id="lbl_balance" text="\$ 0.00" styleClass="balance-amount"/>
+            <HBox alignment="CENTER" spacing="5.0">
+                <Label text="TARIFA:" styleClass="status-label"/>
+                <Label fx:id="lbl_preferred" text="NORMAL" styleClass="status-badge"/>
+            </HBox>
+        </VBox>
+
+        <Separator styleClass="modern-separator"/>
+
+        <VBox spacing="15.0">
+            <Label text="DATOS DEL TITULAR" styleClass="section-title"/>
+
+            <GridPane hgap="20.0" vgap="12.0">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="90.0" halignment="RIGHT"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <Label text="Cédula:" styleClass="info-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <Label fx:id="lbl_identification" text="..." styleClass="info-value" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <Label text="Nombre:" styleClass="info-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <Label fx:id="lbl_fullname" text="..." styleClass="info-value" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="Correo:" styleClass="info-label" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <Label fx:id="lbl_mail" text="..." styleClass="info-value" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <Label text="Teléfono:" styleClass="info-label" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <Label fx:id="lbl_phone" text="..." styleClass="info-value" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            </GridPane>
+        </VBox>
+
+        <HBox alignment="CENTER" spacing="15.0" styleClass="action-bar">
+            <Button mnemonicParsing="false" onAction="#payTicket" text="PAGAR PASAJE" styleClass="btn-primary"/>
+            <Button mnemonicParsing="false" onAction="#rechargeCard" text="RECARGAR SALDO" styleClass="btn-secondary"/>
+        </HBox>
+
+    </VBox>
+</VBox>
