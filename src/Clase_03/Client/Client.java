@@ -8,7 +8,6 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class Client {
-
    private static final int TIMEOUT_MS = 5000;
    private static final int BUFFER_SIZE = 1024;
 

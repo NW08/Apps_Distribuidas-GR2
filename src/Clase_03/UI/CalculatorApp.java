@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class CalculatorApp {
-
    public void start() {
       JavaFXManager.runOnFxThread(() -> {
          try {
