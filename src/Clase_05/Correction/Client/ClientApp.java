@@ -1,12 +1,13 @@
 package Clase_05.Correction.Client;
 
 import Clase_02.Multithreads.FX.JavaFXManager;
-import Clase_05.Correction.Client.UI.controller.CreateViewController;
-import Clase_05.Correction.Client.UI.controller.SearchViewController;
-import Clase_05.Correction.Client.UI.controller.ShowViewController;
+import Clase_05.Correction.Client.UI.controller.CreateController;
+import Clase_05.Correction.Client.UI.controller.SearchController;
+import Clase_05.Correction.Client.UI.controller.ShowController;
 import Clase_05.Correction.Client.UI.utils.UserSession;
 import Clase_05.Correction.Client.UI.utils.ViewNavigator;
 import Clase_05.Correction.Client.UI.utils.ViewRoute;
+import Clase_05.Correction.Client.services.UDPService;
 import Clase_05.Correction.Client.services.UserService;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -16,17 +17,18 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ClientApp {
-   private static final String SERVER_IP = "192.168.1.1";
-   private static final int SERVER_PORT = 7000;
+   private static final String SERVER_IP = "192.168.56.1";
+   private static final int SERVER_PORT = 7541;
+   private static final UDPService service = new UDPService();
 
    private static Callback<Class<?>, Object> getClassObjectCallback() {
-      UserService userService = new UserService(SERVER_IP, SERVER_PORT);
+      UserService userService = new UserService(SERVER_IP, SERVER_PORT, service);
       UserSession userSession = new UserSession();
 
       return controllerClass -> {
-         if (controllerClass == SearchViewController.class) return new SearchViewController(userService, userSession);
-         if (controllerClass == ShowViewController.class) return new ShowViewController(userService, userSession);
-         if (controllerClass == CreateViewController.class) return new CreateViewController(userService);
+         if (controllerClass == SearchController.class) return new SearchController(userService, userSession);
+         if (controllerClass == ShowController.class) return new ShowController(userService, userSession);
+         if (controllerClass == CreateController.class) return new CreateController(userService);
 
          try {
             return controllerClass.getDeclaredConstructor().newInstance();

@@ -3,7 +3,7 @@ package Clase_05.Correction.Client;
 import Clase_02.Multithreads.FX.JavaFXManager;
 
 public class Launcher {
-   static void main() {
+   void main() {
       try {
          JavaFXManager.startup();
          ClientApp app = new ClientApp();
