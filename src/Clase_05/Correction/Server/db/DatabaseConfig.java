@@ -30,8 +30,6 @@ public final class DatabaseConfig {
       config.setMaxLifetime(600000);
       config.setPoolName("udp-server-pool");
 
-      config.setConnectionTestQuery("SELECT 1");
-
       log.info("HikariCP pool initialized — maxPoolSize: {}", config.getMaximumPoolSize());
       return new HikariDataSource(config);
    }
