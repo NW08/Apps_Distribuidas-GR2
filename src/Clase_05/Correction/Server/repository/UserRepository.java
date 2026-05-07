@@ -13,18 +13,36 @@ public class UserRepository {
    private static final String SQL_INSERT =
          "INSERT INTO client (identity_card, first_name, last_name, email, phone, birthday) VALUES (?, ?, ?, ?, ?, ?)";
 
-   private static final String SQL_FIND_BY_ID = "SELECT id, identity_card, first_name, last_name, email, phone, " +
+   private static final String SQL_FIND_BY_IDENTITY_CARD = "SELECT id, identity_card, first_name, last_name, email, phone, " +
          "birthday FROM client WHERE identity_card = ?";
 
-   public Optional<User> findById(String identification) {
+   private static final String SQL_FIND_BY_DB_ID =
+         "SELECT id, identity_card, first_name, last_name, email, phone, birthday " +
+               "FROM client WHERE id = ?";
+
+   public Optional<User> findByDBID(Long id) {
       try (Connection conn = DatabaseConfig.getConnection();
-           PreparedStatement stmt = conn.prepareStatement(SQL_FIND_BY_ID)) {
-         stmt.setString(1, identification);
+           PreparedStatement stmt = conn.prepareStatement(SQL_FIND_BY_DB_ID)) {
+         stmt.setLong(1, id);
          try (ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) return Optional.of(mapRow(rs));
          }
       } catch (SQLException e) {
-         log.error("Error finding user by ID {}: {}", identification, e.getMessage(), e);
+         log.error("Error finding user by ID {}: {}", id, e.getMessage(), e);
+         throw new RuntimeException("Database error finding user", e);
+      }
+      return Optional.empty();
+   }
+
+   public Optional<User> findByIdentityCard(String identityCard) {
+      try (Connection conn = DatabaseConfig.getConnection();
+           PreparedStatement stmt = conn.prepareStatement(SQL_FIND_BY_IDENTITY_CARD)) {
+         stmt.setString(1, identityCard);
+         try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) return Optional.of(mapRow(rs));
+         }
+      } catch (SQLException e) {
+         log.error("Error finding user by identity card {}: {}", identityCard, e.getMessage(), e);
          throw new RuntimeException("Database error finding user", e);
       }
       return Optional.empty();

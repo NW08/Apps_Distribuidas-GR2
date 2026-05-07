@@ -13,7 +13,7 @@ public class CardRepository {
    private static final String SQL_FIND = "SELECT id, client_id, balance FROM card WHERE client_id = ?";
    private static final String SQL_UPDATE = "UPDATE card SET balance = ? WHERE id = ?";
 
-   public void save(Card card, Connection conn) {
+   public Card save(Card card, Connection conn) {
       try (PreparedStatement stmt = conn.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS)) {
 
          stmt.setLong(1, card.getUserID());
@@ -28,6 +28,7 @@ public class CardRepository {
                .build();
 
          log.info("Card created successfully for user ID: {} with card ID: {}", savedCard.getUserID(), savedCard.getId());
+         return savedCard;
       } catch (SQLException e) {
          log.error("Error saving card for user ID {}: {}", card.getUserID(), e.getMessage(), e);
          throw new RuntimeException("Database error saving card", e);
@@ -38,7 +39,7 @@ public class CardRepository {
       try (Connection conn = DatabaseConfig.getConnection();
            PreparedStatement stmt = conn.prepareStatement(SQL_FIND)) {
 
-         stmt.setString(1, userId);
+         stmt.setLong(1, Long.parseLong(userId));
 
          try (ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) return Optional.of(mapRow(rs));
