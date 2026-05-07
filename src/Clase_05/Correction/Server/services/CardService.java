@@ -1,9 +1,7 @@
 package Clase_05.Correction.Server.services;
 
 import Clase_05.Correction.Server.model.Card;
-import Clase_05.Correction.Server.model.User;
 import Clase_05.Correction.Server.repository.CardRepository;
-import Clase_05.Correction.Server.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,33 +11,26 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 public class CardService {
    private final CardRepository cardRepository;
-   private final UserRepository userRepository;
 
-   public BigDecimal rechargeCard(String userIdentification, BigDecimal amount) {
-      log.info("Attempting to recharge ${} for user ID: {}", amount, userIdentification);
+   public BigDecimal rechargeCard(String userDbId, BigDecimal amount) {
+      log.info("Attempting to recharge ${} for user ID: {}", amount, userDbId);
 
-      Card card = findCardByUserId(userIdentification);
+      Card card = findCardByUserId(userDbId);
       card.chargeCard(amount);
       cardRepository.updateBalance(card);
 
-      log.info("Recharge successful. New balance for user ID {}: ${}", userIdentification, card.getBalance());
+      log.info("Recharge successful. New balance for user ID {}: ${}", userDbId, card.getBalance());
       return card.getBalance();
    }
 
-   public BigDecimal processPayment(String userIdentification) {
-      Card card = findCardByUserId(userIdentification);
-      User user = userRepository.findById(userIdentification)
-            .orElseThrow(() -> new IllegalArgumentException("User not found for ID: " + userIdentification));
-
-      card.payTicket(user.isPreferred());
+   public BigDecimal processPayment(String userDbId, boolean isPreferred) {
+      Card card = findCardByUserId(userDbId);
+      card.payTicket(isPreferred);
       cardRepository.updateBalance(card);
-
-      log.info("Payment successful for user ID {} (preferred: {}). Balance: ${}",
-            userIdentification, user.isPreferred(), card.getBalance());
       return card.getBalance();
    }
 
-   private Card findCardByUserId(String userIdentification) {
+   public Card findCardByUserId(String userIdentification) {
       return cardRepository.findByUserId(userIdentification)
             .orElseThrow(() -> new IllegalArgumentException("Card not found for user ID: " + userIdentification));
    }

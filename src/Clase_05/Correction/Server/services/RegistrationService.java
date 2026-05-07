@@ -30,8 +30,8 @@ public class RegistrationService {
             Card newCard = Card.builder()
                   .userID(savedUser.getId())
                   .build();
-            cardRepository.save(newCard, conn);
-            log.debug("Card provisioned for user ID: {}", savedUser.getId());
+            Card savedCard = cardRepository.save(newCard, conn);
+            log.debug("Card provisioned — userID: {}, cardID: {}", savedUser.getId(), savedCard.getId());
 
             conn.commit();
             log.info("Registration completed for user ID: {}", savedUser.getId());
