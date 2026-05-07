@@ -4,62 +4,90 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 <VBox xmlns:fx="http://javafx.com/fxml/1"
-      xmlns="http://javafx.com/javafx/26"
-      fx:controller="Clase_05.Correction.Client.UI.controller.ShowViewController"
       alignment="CENTER"
-      spacing="20.0"
       prefHeight="600.0"
       prefWidth="600.0"
-      styleClass="main-background">
+      spacing="20.0"
+      styleClass="main-background"
+      xmlns="http://javafx.com/javafx/26"
+      fx:controller="Clase_05.Correction.Client.UI.controller.ShowController">
 
     <stylesheets>
         <URL value="@styles.css"/>
     </stylesheets>
 
+    <!-- Header -->
     <VBox alignment="CENTER" spacing="5.0">
-        <Label text="SISTEMA METROPOLITANO DE TRANSPORTE" styleClass="header-subtitle"/>
-        <Label text="Perfil y Saldo" styleClass="header-title"/>
+        <Label styleClass="header-subtitle" text="SISTEMA METROPOLITANO DE TRANSPORTE"/>
+        <Label styleClass="header-title" text="Perfil y Saldo"/>
     </VBox>
 
-    <VBox alignment="TOP_CENTER" spacing="25.0" styleClass="content-card" maxWidth="450.0">
+    <!-- Content card -->
+    <VBox alignment="TOP_CENTER" maxWidth="450.0" spacing="25.0" styleClass="content-card">
 
-        <VBox alignment="CENTER" spacing="5.0" styleClass="balance-container">
-            <Label text="SALDO DISPONIBLE" styleClass="balance-subtitle"/>
-            <Label fx:id="lbl_balance" text="\$ 0.00" styleClass="balance-amount"/>
+        <!-- Balance block -->
+        <VBox alignment="CENTER" styleClass="balance-container">
+            <Label styleClass="balance-subtitle" text="SALDO DISPONIBLE"/>
+
             <HBox alignment="CENTER" spacing="5.0">
-                <Label text="TARIFA:" styleClass="status-label"/>
-                <Label fx:id="lbl_preferred" text="NORMAL" styleClass="status-badge"/>
+                <Label styleClass="balance-currency" text="\$"/>
+                <Label fx:id="lbl_balance" styleClass="balance-amount-large" text="0.00"/>
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="5.0" styleClass="status-container">
+                <Label styleClass="status-label" text="TARIFA:"/>
+                <Label fx:id="lbl_preferred" styleClass="status-badge"/>
             </HBox>
         </VBox>
 
         <Separator styleClass="modern-separator"/>
 
+        <!-- User data -->
         <VBox spacing="15.0">
-            <Label text="DATOS DEL TITULAR" styleClass="section-title"/>
+            <Label styleClass="section-title" text="DATOS DEL TITULAR"/>
 
             <GridPane hgap="20.0" vgap="12.0">
                 <columnConstraints>
-                    <ColumnConstraints minWidth="90.0" halignment="RIGHT"/>
+                    <ColumnConstraints halignment="RIGHT" minWidth="90.0"/>
                     <ColumnConstraints hgrow="ALWAYS"/>
                 </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                </rowConstraints>
 
-                <Label text="Cédula:" styleClass="info-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                <Label fx:id="lbl_identification" text="..." styleClass="info-value" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                <!-- Row 0: Cédula -->
+                <Label styleClass="info-label" text="Cédula:"
+                       GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <Label fx:id="lbl_identification" styleClass="info-value" text="..."
+                       GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
-                <Label text="Nombre:" styleClass="info-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                <Label fx:id="lbl_fullname" text="..." styleClass="info-value" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-
-                <Label text="Correo:" styleClass="info-label" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                <Label fx:id="lbl_mail" text="..." styleClass="info-value" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-
-                <Label text="Teléfono:" styleClass="info-label" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-                <Label fx:id="lbl_phone" text="..." styleClass="info-value" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <!-- Row 1: Nombre -->
+                <Label styleClass="info-label" text="Nombre:"
+                       GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <Label fx:id="lbl_fullname" styleClass="info-value" text="..."
+                       GridPane.columnIndex="1" GridPane.rowIndex="1"/>
             </GridPane>
         </VBox>
 
+        <!-- Action bar: pay, recharge, and back -->
         <HBox alignment="CENTER" spacing="15.0" styleClass="action-bar">
-            <Button mnemonicParsing="false" onAction="#payTicket" text="PAGAR PASAJE" styleClass="btn-primary"/>
-            <Button mnemonicParsing="false" onAction="#rechargeCard" text="RECARGAR SALDO" styleClass="btn-secondary"/>
+            <Button mnemonicParsing="false"
+                    onAction="#goBack"
+                    styleClass="btn-secondary"
+                    text="VOLVER"/>
+            <Button fx:id="btn_pay"
+                    mnemonicParsing="false"
+                    onAction="#payTicket"
+                    styleClass="btn-primary"
+                    text="PAGAR PASAJE"/>
+            <Button fx:id="btn_recharge"
+                    mnemonicParsing="false"
+                    onAction="#rechargeCard"
+                    styleClass="btn-secondary"
+                    text="RECARGAR"/>
         </HBox>
 
     </VBox>
