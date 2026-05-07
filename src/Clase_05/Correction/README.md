@@ -1,7 +1,8 @@
 # Sistema de Tarjetas de Transporte (Cliente / Servidor UDP) || `CLASE 05 (29|04|2026)`
 
 Proyecto construido como práctica de la materia de Aplicaciones Distribuidas en Java, evolucionando la arquitectura de
-la [Prueba 01](../../Clase_04) hacia un sistema completo cliente-servidor (corrección). Cuenta con un servidor UDP con **persistencia real en base de datos MySQL**, 
+la [Prueba 01](../../Clase_04) hacia un sistema completo cliente-servidor (corrección). Cuenta con un servidor UDP con **persistencia real
+en base de datos MySQL**,
 transacciones e hilos virtuales, interactuando con un cliente de escritorio **JavaFX** asíncrono y reactivo.
 
 ## Vista General del Sistema
@@ -16,7 +17,7 @@ perfiles, recargar saldo y pagar pasajes sin bloquear nunca la interfaz gráfica
 
 ### Lado del Cliente (`Clase_05.Client`)
 
-| Clase | Responsabilidad                                                                                                                          |
+| Clase           | Responsabilidad                                                                                                                          |
 |-----------------|------------------------------------------------------------------------------------------------------------------------------------------|
 | `ClientApp`     | Punto de entrada (instancia simplificada con JEP 477). Configura el DI factory para los controladores e inicializa el `ViewNavigator`.   |
 | `UserService`   | Capa de servicio. Construye los payloads UDP, interpreta las respuestas del servidor y expone la API a los controladores vía `Optional`. |
@@ -81,12 +82,12 @@ CREATE TABLE card
 
 El payload viaja como texto plano con campos delimitados por `|`. El servidor responde con `SUCCESS|...` o `ERROR|...`.
 
-| Comando    | Payload enviado                                                 | Identificador usado      | Respuesta exitosa                                   |
-|------------|-----------------------------------------------------------------|--------------------------|-----------------------------------------------------|
-| `SEARCH`   | `SEARCH\|<cédula>`                                              | Cédula (`identity_card`) | `SUCCESS\|ID:<id>\|NAME:<nombre>\|BALANCE:$<saldo>` |
-| `CREATE`   | `CREATE\|cédula\|nombre\|apellido\|email\|teléfono\|YYYY-MM-DD` | — (registro nuevo)       | `SUCCESS\|USER_ID:<id>`                             |
-| `RECHARGE` | `RECHARGE\|<db_user_id>\|<monto>`                               | ID de la BD              | `SUCCESS\|BALANCE:$<nuevo_saldo>`                   |
-| `PAY`      | `PAY\|<db_user_id>`                                             | ID de la BD              | `SUCCESS\|BALANCE:$<nuevo_saldo>`                   |
+| Comando    | Payload enviado                                              | Identificador usado      | Respuesta exitosa                                   |
+|------------|--------------------------------------------------------------|--------------------------|-----------------------------------------------------|
+| `SEARCH`   | `SEARCH\|<cédula>`                                           | Cédula (`identity_card`) | `SUCCESS\|ID:<id>\|NAME:<nombre>\|BALANCE:$<saldo>` |
+| `CREATE`   | `CREATE\|cédula\|nombre\|apellido\|email\|phone\|YYYY-MM-DD` | — (registro nuevo)       | `SUCCESS\|USER_ID:<id>`                             |
+| `RECHARGE` | `RECHARGE\|<db_user_id>\|<monto>`                            | ID de la BD              | `SUCCESS\|BALANCE:$<nuevo_saldo>`                   |
+| `PAY`      | `PAY\|<db_user_id>`                                          | ID de la BD              | `SUCCESS\|BALANCE:$<nuevo_saldo>`                   |
 
 > **Nota:** `SEARCH` es el único comando que identifica al usuario por su cédula. `RECHARGE` y `PAY` usan el ID numérico generado por la
 > base de datos.
