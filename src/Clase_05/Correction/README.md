@@ -16,7 +16,7 @@ perfiles, recargar saldo y pagar pasajes sin bloquear nunca la interfaz gráfica
 
 ### Lado del Cliente (`Clase_05.Client`)
 
-| Clase / Archivo | Responsabilidad                                                                                                                          |
+| Clase | Responsabilidad                                                                                                                          |
 |-----------------|------------------------------------------------------------------------------------------------------------------------------------------|
 | `ClientApp`     | Punto de entrada (instancia simplificada con JEP 477). Configura el DI factory para los controladores e inicializa el `ViewNavigator`.   |
 | `UserService`   | Capa de servicio. Construye los payloads UDP, interpreta las respuestas del servidor y expone la API a los controladores vía `Optional`. |
