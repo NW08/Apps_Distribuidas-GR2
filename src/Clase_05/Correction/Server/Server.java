@@ -1,24 +1,23 @@
 package Clase_05.Correction.Server;
 
-import Clase_05.Correction.Server.model.User;
 import Clase_05.Correction.Server.services.CardService;
+import Clase_05.Correction.Server.services.Command;
 import Clase_05.Correction.Server.services.RegistrationService;
 import Clase_05.Correction.Server.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketTimeoutException;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
@@ -86,56 +85,18 @@ public class Server {
 
    private String processRequest(String payload) {
       try {
-         String[] dataParts = payload.split("\\|");
-         String operation = dataParts[0].trim().toUpperCase();
+         String[] parts = payload.split("\\|");
+         String operation = parts[0].trim();
 
-         return switch (operation) {
-            case "SEARCH" -> {
-               // Esperado: SEARCH|userId
-               String userId = dataParts[1].trim();
-               User user = userService.getUser(userId);
-               yield "SUCCESS|" + user.toString();
-            }
-
-            case "CREATE" -> {
-               // Esperado: CREATE|identification|first_name|last_name|email|phone|YYYY-MM-DD
-               validateCreatePayload(dataParts);
-               User newUser = User.builder()
-                     .identification(dataParts[1].trim())
-                     .name(dataParts[2].trim())
-                     .lastName(dataParts[3].trim())
-                     .email(dataParts[4].trim())
-                     .phone(dataParts[5].trim())
-                     .birthday(LocalDate.parse(dataParts[6].trim()))
-                     .build();
-
-               User registeredUser = registrationService.registerNewUser(newUser);
-               yield "SUCCESS|" + registeredUser.getId();
-            }
-
-            case "RECHARGE" -> {
-               // Esperado: RECHARGE|userId|amount
-               String userId = dataParts[1].trim();
-               BigDecimal amount = new BigDecimal(dataParts[2].trim());
-               BigDecimal newBalance = cardService.rechargeCard(userId, amount);
-               yield "SUCCESS|" + newBalance.toString();
-            }
-
-            case "PAY" -> {
-               // Esperado: PAY|userId
-               String userId = dataParts[1].trim();
-               BigDecimal newBalance = cardService.processPayment(userId);
-               yield "SUCCESS|" + newBalance.toString();
-            }
-
-            default -> "ERROR|Unknown Operator: " + operation;
-         };
+         return Command.from(operation)
+               .map(cmd -> cmd.execute(parts, cardService, registrationService, userService))
+               .orElse("ERROR|Unknown command: " + operation);
 
       } catch (IndexOutOfBoundsException e) {
          log.error("Malformed payload received: {}", payload);
          return "ERROR|Malformed payload. Missing parameters.";
       } catch (NumberFormatException e) {
-         log.error("Invalid numbers in payload: {}", payload);
+         log.error("Invalid number in payload: {}", payload);
          return "ERROR|Invalid number format provided.";
       } catch (DateTimeParseException e) {
          log.error("Invalid date format in payload: {}", payload);
@@ -158,13 +119,17 @@ public class Server {
    public void stop() {
       isRunning.compareAndSet(true, false);
       dbExecutor.shutdown();
-      log.info("Server stop requested.");
+      try {
+         if (!dbExecutor.awaitTermination(5, TimeUnit.SECONDS)) {
+            log.warn("Some tasks did not complete within the shutdown window.");
+            dbExecutor.shutdownNow();
+         }
+      } catch (InterruptedException e) {
+         Thread.currentThread().interrupt();
+         dbExecutor.shutdownNow();
+      }
+      log.info("Server Stopped.");
    }
 
-   private void validateCreatePayload(String[] parts) {
-      if (!parts[4].trim().contains("@"))
-         throw new IllegalArgumentException("Invalid email format.");
-      if (parts[5].trim().length() != 10)
-         throw new IllegalArgumentException("Invalid phone number.");
-   }
+
 }

@@ -12,12 +12,12 @@ import lombok.extern.slf4j.Slf4j;
 public class Launcher {
    private static final int SERVER_PORT = 7541;
 
-   static void main() {
+   void main() {
       CardRepository cardRepository = new CardRepository();
       UserRepository userRepository = new UserRepository();
 
       UserService userService = new UserService(userRepository);
-      CardService cardService = new CardService(cardRepository, userRepository);
+      CardService cardService = new CardService(cardRepository);
       RegistrationService registrationService = new RegistrationService(userRepository, cardRepository);
 
       Server server = new Server(cardService, registrationService, userService);
