@@ -13,7 +13,7 @@ import java.time.Period;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class User {
-   private final static int MIN_AGE = 60;
+   private static final int MIN_AGE = 60;
 
    private Long id;
    private String identification;

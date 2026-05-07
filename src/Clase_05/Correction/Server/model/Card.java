@@ -8,9 +8,6 @@ import java.math.BigDecimal;
 @Data
 @Builder(toBuilder = true)
 public class Card {
-   public static final BigDecimal TICKET_PRICE = new BigDecimal("0.45");
-   public static final BigDecimal TICKET_PRICE_PREFERRED = new BigDecimal("0.17");
-
    private Long id;
    private Long userID;
 
@@ -23,7 +20,7 @@ public class Card {
    }
 
    public void payTicket(boolean isPreferred) {
-      BigDecimal price = isPreferred ? TICKET_PRICE_PREFERRED : TICKET_PRICE;
+      BigDecimal price = FareType.from(isPreferred).getPrice();
       if (this.balance.compareTo(price) < 0)
          throw new IllegalStateException("Insufficient balance. Required: $" + price + ", Available: $" + this.balance);
       this.balance = this.balance.subtract(price);
