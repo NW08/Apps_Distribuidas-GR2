@@ -1,9 +1,8 @@
 # Sistema de Tarjetas de Transporte (Cliente / Servidor UDP) || `CLASE 05 (29|04|2026)`
 
 Proyecto construido como práctica de la materia de Aplicaciones Distribuidas en Java, evolucionando la arquitectura de
-la [Prueba 01](../../Clase_04) hacia un sistema completo cliente-servidor (corrección). Cuenta con un servidor UDP con *
-*persistencia real en base de datos MySQL**, transacciones e hilos virtuales, interactuando con un cliente de escritorio **JavaFX**
-asíncrono y reactivo.
+la [Prueba 01](../../Clase_04) hacia un sistema completo cliente-servidor (corrección). Cuenta con un servidor UDP con **persistencia real en base de datos MySQL**, 
+transacciones e hilos virtuales, interactuando con un cliente de escritorio **JavaFX** asíncrono y reactivo.
 
 ## Vista General del Sistema
 
