@@ -144,7 +144,7 @@ El payload viaja como texto plano con campos delimitados por `|`. El servidor re
 1. **Clona el repositorio**
    ```bash
    git clone https://github.com/NW08/Apps_Distribuidas-GR2.git
-   cd src/Clase_05
+   cd src/Clase_05/Correction
    ```
 
 2. **Configura la Base de Datos y Variables de Entorno (Servidor)**
@@ -163,8 +163,9 @@ El payload viaja como texto plano con campos delimitados por `|`. El servidor re
       `--module-path /ruta/a/javafx-sdk-26/lib --add-modules=javafx.controls,javafx.fxml,javafx.graphics`
 
 4. **Ejecuta la aplicación (el orden importa)**
-    - **Primero:** Levanta el Servidor ejecutando `Clase_05.Server.Launcher`. Verifica en consola: *UDP Server listening on port: 7541*.
-    - **Segundo:** Levanta el Cliente ejecutando `Clase_05.Client.ClientApp` para abrir la interfaz gráfica.
+    - **Primero:** Levanta el Servidor ejecutando `Clase_05.Correction.Server.Launcher`. Verifica en consola: *UDP Server listening on port:
+      7541*.
+    - **Segundo:** Levanta el Cliente ejecutando `Clase_05.Correction.Client.ClientApp` para abrir la interfaz gráfica.
 
 ---
 
