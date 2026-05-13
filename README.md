@@ -19,6 +19,7 @@ ejecutarlo.
 | 6 | [`Sistema de Tarjetas`](./src/Clase_05/Correction) | Corrección de la primera prueba del semestre            | HikariCP, JBDC     |
 | 7 | [`Servidor TCP`](./src/Clase_05/TCP)               | Simulación de registro de horarios laborales            | Protocolo TCP      |
 | 8 | [`Maven`](./src/Clase_06/MVN)                      | Introducción a Maven                                    | Apache Maven       |
+| 9 | [`RMI`](./src/Clase_06/RMI)                        | Implementación de un sistema distribuido con RMI        | Java RMI           |
 
 ---
 
