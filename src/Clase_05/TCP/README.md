@@ -120,8 +120,8 @@ La comunicación se basa en el intercambio de objetos serializados en JSON sobre
     * **Servidor:** En su `Launcher`, ajustar la constante `PORT`.
 
 4. **Ejecución:**
-    1. Iniciar primero el **Servidor** (`Clase_06.TCP.Server.Launcher`).
-    2. Iniciar el **Cliente** (`Clase_06.TCP.Client.Launcher`) para abrir la interfaz.
+    1. Iniciar primero el **Servidor** (`Clase_05.TCP.Server.Launcher`).
+    2. Iniciar el **Cliente** (`Clase_05.TCP.Client.Launcher`) para abrir la interfaz.
 
 ## Flujo de Operaciones
 
