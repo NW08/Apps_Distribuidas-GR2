@@ -43,12 +43,12 @@ public class FormController {
       String employeeId = employeeIdInput.getText().trim();
 
       if (employeeId.isEmpty()) {
-         updateStatus("Employee ID cannot be empty", false);
+         updateStatus("El campo no puede estar vacío", false);
          return;
       }
 
       disableButtons(true);
-      updateStatus("Sending request...", true);
+      updateStatus("Enviando Solicitud...", true);
 
       String timestamp = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
       PunchRequest request = new PunchRequest(employeeId, type, timestamp);
@@ -57,7 +57,7 @@ public class FormController {
             .whenComplete((response, ex) -> JavaFXManager.runOnFxThread(() -> {
                if (ex != null) {
                   log.error("Failed to process punch operation", ex);
-                  updateStatus("Internal Server Error or Communication Failure", false);
+                  updateStatus("Error Interno o Comunicación TCP Fallida", false);
                } else updateStatus(response.message(), response.success());
                disableButtons(false);
             }));
