@@ -1,23 +1,26 @@
 package Clase_05.TCP.Client;
 
-import Clase_05.TCP.Client.services.ArrivalClientService;
+import Clase_02.Multithreads.FX.JavaFXManager;
+import Clase_05.TCP.Client.model.JacksonConfig;
+import Clase_05.TCP.Client.services.TCPService;
 import lombok.extern.slf4j.Slf4j;
+import tools.jackson.databind.ObjectMapper;
 
 @Slf4j
 public class Launcher {
-   void main() {
-      String serverIp = "192.168.1.2";
-      int serverPort = 5412;
-      String employeeName = "Jossu Ortiz";
+   private static final String SERVER_IP = "192.168.56.1";
+   private static final int SERVER_PORT = 5412;
 
-      var clientService = new ArrivalClientService(serverIp, serverPort);
-
+   public static void main() {
       try {
-         log.info("Attempting to register arrival for: {}", employeeName);
-         String result = clientService.registerArrival(employeeName);
-         log.info("Success! Server says: {}", result);
-      } catch (RuntimeException e) {
-         log.error("Process aborted due to network error: {}", e.getMessage());
+         JavaFXManager.startup();
+         ObjectMapper mapper = new JacksonConfig().mapper;
+         TCPService service = new TCPService(SERVER_IP, SERVER_PORT, mapper);
+         ClientApp app = new ClientApp(service);
+         app.start();
+      } catch (Exception e) {
+         log.error("Critical Error on JVM startup", e);
+         System.exit(1);
       }
    }
 }
