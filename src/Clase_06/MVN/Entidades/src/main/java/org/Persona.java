@@ -1,4 +1,4 @@
-package Class_06.MVN.Entidades.src.main.java.org;
+package Clase_06.MVN.Entidades.src.main.java.org;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
