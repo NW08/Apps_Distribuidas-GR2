@@ -17,7 +17,7 @@ ejecutarlo.
 | 4 | [`Servidor UDP`](./src/Clase_03)                   | Calculadora básica con arquitectura cliente - servidor  | Protocolo UDP      |
 | 5 | [`Prueba 01`](./src/Clase_04)                      | Primera prueba del semestre, app cliente - servidor     | UDP, JavaFX        |
 | 6 | [`Sistema de Tarjetas`](./src/Clase_05/Correction) | Corrección de la primera prueba del semestre            | HikariCP, JBDC     |
-| 7 | [`Servidor TCP`](./src/Clase_05/TCP)               | Simulación de registro de horarios laborales            | Jackson (JSON)     |
+| 7 | [`Servidor TCP`](./src/Clase_05/TCP)               | Simulación de registro de horarios laborales            | Protocolo TCP      |
 | 8 | [`Maven`](./src/Clase_06/MVN)                      | Introducción a Maven                                    | Apache Maven       |
 
 ---
