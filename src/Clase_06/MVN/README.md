@@ -8,7 +8,7 @@ repositorio local.
 
 Este es un proyecto que demuestra cómo dividir responsabilidades en módulos Maven independientes: un módulo `Entidades` que define el
 modelo de datos con **Lombok**, y un módulo `Servicio` que consume ese artefacto para implementar la lógica de negocio. Construido con
-**Java 25** y gestionado íntegramente con **Apache Maven**. La comunicación entre módulos se logra mediante la referencia del `groupId` y
+**Java 26** y gestionado íntegramente con **Apache Maven**. La comunicación entre módulos se logra mediante la referencia del `groupId` y
 `artifactId` en el `pom.xml` del módulo dependiente, sin necesidad de copiar código fuente.
 
 ---
