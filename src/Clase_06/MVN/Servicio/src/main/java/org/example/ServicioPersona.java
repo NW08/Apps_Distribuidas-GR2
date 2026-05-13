@@ -1,6 +1,6 @@
-package Class_06.MVN.Servicio.src.main.java.org.example;
+package Clase_06.MVN.Servicio.src.main.java.org.example;
 
-import Class_06.MVN.Entidades.src.main.java.org.Persona;
+import Clase_06.MVN.Entidades.src.main.java.org.Persona;
 
 
 import java.util.ArrayList;
