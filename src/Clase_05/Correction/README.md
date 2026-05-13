@@ -15,7 +15,7 @@ perfiles, recargar saldo y pagar pasajes sin bloquear nunca la interfaz gráfica
 
 ## Arquitectura del Sistema
 
-### Lado del Cliente (`Clase_05.Client`)
+### Lado del Cliente (`Clase_05.Correction.Client`)
 
 | Clase           | Responsabilidad                                                                                                                          |
 |-----------------|------------------------------------------------------------------------------------------------------------------------------------------|
@@ -27,7 +27,7 @@ perfiles, recargar saldo y pagar pasajes sin bloquear nunca la interfaz gráfica
 | `JavaFXManager` | Utilitario concurrente. Centraliza el despacho seguro al FX thread con `Platform.runLater()`.                                            |
 | `ViewRoute`     | Enum que mapea cada ruta de navegación a su archivo FXML correspondiente.                                                                |
 
-**Controladores (`Clase_05.Client.UI.controller`)**
+**Controladores (`Clase_05.Correction.Client.UI.controller`)**
 
 | Controlador        | Vista asociada    | Responsabilidad                                                                                                  |
 |--------------------|-------------------|------------------------------------------------------------------------------------------------------------------|
@@ -35,7 +35,7 @@ perfiles, recargar saldo y pagar pasajes sin bloquear nunca la interfaz gráfica
 | `CreateController` | `CreateView.fxml` | Recolecta los datos del formulario y envía el comando de registro al servidor de forma asíncrona.                |
 | `ShowController`   | `ShowView.fxml`   | Muestra el perfil y saldo del usuario activo. Gestiona el pago de pasaje y la recarga de saldo.                  |
 
-### Lado del Servidor (`Clase_05.Server`)
+### Lado del Servidor (`Clase_05.Correction.Server`)
 
 | Paquete      | Clase / Archivo  | Responsabilidad                                                                                   |
 |--------------|------------------|---------------------------------------------------------------------------------------------------|
