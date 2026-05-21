@@ -22,7 +22,7 @@ ejecutarlo.
 | 9  | [`RMI`](./src/Clase_06/RMI)                        | Implementación de un sistema distribuido con RMI        | Java RMI           |
 | 10 | [`PostgreSQL (RMI)`](./src/Clase_07/RMI)           | Sistema de RMI vinculado a PostgreSQL remoto            | RMI, PostgreSQL    |
 | 11 | [`Introducción a Docker`](./src/Clase_07/Docker)   | Inducción a Docker, contenedores e imágenes             | Docker Desktop     |
-| 12 | [`Node - Docker`](./src/Clase_08)                  | Imágenes, volúmenes y comunicación entre contenedores   | NodeJS, Docker     |
+| 12 | [`Node - Docker`](./src/Clase_08)                  | Imágenes, volúmenes y comunicación entre contenedores   | Node JS, Docker     |
 
 ---
 
