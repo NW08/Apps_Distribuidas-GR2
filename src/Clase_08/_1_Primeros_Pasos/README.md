@@ -56,8 +56,13 @@ docker volume ls
 Ejecuta el siguiente comando para crear el contenedor, mapeando el puerto y el volumen. Reemplaza `"tu usuario"` y `"ruta a tu carpeta"`
 con los valores reales de tu máquina:
 
+> Paso 3.1: Crea una red personalizada para que los contenedores puedan comunicarse entre sí:
+> ```bash
+> docker network create red-node # -> o el nombre que prefieras
+> ```
+
 ```bash
-docker run -d --name mi-contenedor --network bridge \
+docker run -d --name mi-contenedor --network red-node \
   -e MYSQL_ROOT_PASSWORD=password \
   -e MYSQL_ROOT_HOST=% \
   -v mi-vol:/var/lib/mysql \
