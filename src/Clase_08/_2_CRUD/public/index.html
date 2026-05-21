@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Gestión de Personal</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            background: #f4f4f9;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+            background: #007bff;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+        }
+
+        .btn-delete:hover {
+            background: #c82333;
+        }
+
+        .btn-edit {
+            background: #ffc107;
+            color: black;
+        }
+
+        .btn-edit:hover {
+            background: #e0a800;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Sistema de Gestión de Personal</h2>
+
+    <!-- Formulario para Crear / Actualizar -->
+    <form id="empleadoForm">
+        <input id="empId" type="hidden">
+        <input id="nombre" placeholder="Nombre completo" required type="text">
+        <input id="cargo" placeholder="Cargo" required type="text">
+        <input id="sueldo" placeholder="Sueldo" required step="0.01" type="number">
+        <button id="btnGuardar" type="submit">Guardar</button>
+        <button id="btnCancelar" onclick="resetForm()" style="display:none; background:#6c757d;" type="button">Cancelar</button>
+    </form>
+
+    <!-- Tabla de Empleados -->
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Cargo</th>
+            <th>Sueldo</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody id="tablaBody">
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const form = document.getElementById('empleadoForm');
+    const tablaBody = document.getElementById('tablaBody');
+
+    cargarEmpleados();
+
+    async function cargarEmpleados() {
+        const respuesta = await fetch('/personal');
+        const empleados = await respuesta.json();
+
+        tablaBody.innerHTML = '';
+        empleados.forEach(emp => {
+            tablaBody.innerHTML += `
+                <tr>
+                    <td>${emp.id}</td>
+                    <td>${emp.nombre}</td>
+                    <td>${emp.cargo}</td>
+                    <td>$${emp.sueldo}</td>
+                    <td>
+                        <button class="btn-edit" onclick="prepararEdicion(${emp.id}, '${emp.nombre}', '${emp.cargo}', ${emp.sueldo})">Editar</button>
+                        <button class="btn-delete" onclick="eliminarEmpleado(${emp.id})">Borrar</button>
+                    </td>
+                </tr>
+            `;
+        });
+    }
+
+    // 2. Crear o Actualizar empleado
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const id = document.getElementById('empId').value;
+        const nombre = document.getElementById('nombre').value;
+        const cargo = document.getElementById('cargo').value;
+        const sueldo = document.getElementById('sueldo').value;
+
+        const url = id ? `/personal/${id}` : '/personal';
+        const method = id ? 'PUT' : 'POST';
+
+        await fetch(url, {
+            method: method,
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({nombre, cargo, sueldo})
+        });
+
+        resetForm();
+        await cargarEmpleados();
+    });
+
+    // 3. Preparar el formulario para editar
+    function prepararEdicion(id, nombre, cargo, sueldo) {
+        document.getElementById('empId').value = id;
+        document.getElementById('nombre').value = nombre;
+        document.getElementById('cargo').value = cargo;
+        document.getElementById('sueldo').value = sueldo;
+        document.getElementById('btnGuardar').textContent = 'Actualizar';
+        document.getElementById('btnCancelar').style.display = 'inline-block';
+    }
+
+    // 4. Eliminar empleado
+    async function eliminarEmpleado(id) {
+        if (confirm('¿Estás seguro de eliminar este empleado?')) {
+            await fetch(`/personal/${id}`, {method: 'DELETE'});
+            await cargarEmpleados();
+        }
+    }
+
+    // 5. Limpiar formulario
+    function resetForm() {
+        form.reset();
+        document.getElementById('empId').value = '';
+        document.getElementById('btnGuardar').textContent = 'Guardar';
+        document.getElementById('btnCancelar').style.display = 'none';
+    }
+</script>
+</body>
+</html>
