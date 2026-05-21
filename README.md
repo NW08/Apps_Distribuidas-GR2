@@ -20,7 +20,8 @@ ejecutarlo.
 | 7  | [`Servidor TCP`](./src/Clase_05/TCP)               | Simulación de registro de horarios laborales            | Protocolo TCP      |
 | 8  | [`Maven`](./src/Clase_06/MVN)                      | Introducción a Maven                                    | Apache Maven       |
 | 9  | [`RMI`](./src/Clase_06/RMI)                        | Implementación de un sistema distribuido con RMI        | Java RMI           |
-| 10 | [`RMI`](./src/Clase_07/RMI)                        | Sistema de RMI vinculado a PostgreSQL remoto            | RMI, PostgreSQL    |
+| 10 | [`PostgreSQL (RMI)`](./src/Clase_07/RMI)           | Sistema de RMI vinculado a PostgreSQL remoto            | RMI, PostgreSQL    |
+| 11 | [`Introducción a Docker`](./src/Clase_07/Docker)   | Inducción a Docker, contenedores e imágenes             | Docker Desktop     |
 
 ---
 
