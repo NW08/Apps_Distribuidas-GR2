@@ -186,5 +186,5 @@ Abre `http://localhost:7000` en tu navegador. Deberías ver los datos de la base
 
 ---
 
-> **Siguiente paso →** En la [`siguiente carpeta`](../_2_CRUD) se tomará esta base y se contenerizará también la aplicación `web`,
-> de modo que tanto la base de datos como el servidor Node.js corran como contenedores conectados entre sí.
+> **Siguiente paso →** En la [`siguiente carpeta`](../_2_CRUD) se tomará esta base y se modificará la aplicación,
+> de modo que tanto la base de datos como el servidor Node.js puedan realizar un CRUD de la información.
