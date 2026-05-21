@@ -1,4 +1,4 @@
-# Guía de Inicio — MySQL en Docker + App Node.js
+# Guía de Inicio | PARTE 1 — MySQL en Docker + App Node.js
 
 > **Punto de partida.** Esta guía cubre la configuración base del entorno: levantar una base de datos MySQL dentro de un contenedor
 > Docker, poblarla con datos reales y conectarla a una aplicación Node.js, primero corriendo localmente y luego contenerizada.
