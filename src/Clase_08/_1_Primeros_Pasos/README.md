@@ -10,8 +10,8 @@
 
 Asegúrate de tener lo siguiente instalado en tu máquina:
 
-- **Docker Desktop** — [descargar aquí](https://www.docker.com/products/docker-desktop/)
-- **Node.js 18 LTS o superior** — [descargar aquí](https://nodejs.org/)
+- **Docker Desktop** — [Descarga Aquí](https://www.docker.com/products/docker-desktop/)
+- **Node.js 18 LTS o superior** — [Descarga Aquí](https://nodejs.org/)
 - Un cliente MySQL opcional para inspección visual, como [DBeaver](https://dbeaver.io/) o [TablePlus](https://tableplus.com/)
 
 ---
