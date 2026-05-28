@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Gestión de Películas</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            flex: 1;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .edit {
+            background: #f0ad4e;
+            color: black;
+        }
+
+        .delete {
+            background: #dc3545;
+        }
+
+        .cancel {
+            background: gray;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #efefef;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Sistema de Gestión de Películas</h2>
+
+    <!-- FORMULARIO -->
+    <form id="peliculaForm">
+
+        <input id="peliculaId" type="hidden">
+
+        <input
+                id="titulo"
+                placeholder="Título"
+                required
+                type="text"
+        >
+
+        <input
+                id="director"
+                placeholder="Director"
+                required
+                type="text"
+        >
+
+        <input
+                id="anio"
+                placeholder="Año"
+                required
+                type="number"
+        >
+
+        <input
+                id="genero"
+                placeholder="Género"
+                required
+                type="text"
+        >
+
+        <button id="btnGuardar" type="submit">
+            Guardar
+        </button>
+
+        <button
+                class="cancel"
+                id="btnCancelar"
+                onclick="resetForm()"
+                style="display:none;"
+                type="button"
+        >
+            Cancelar
+        </button>
+
+    </form>
+
+    <!-- TABLA -->
+    <table>
+
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Director</th>
+            <th>Año</th>
+            <th>Género</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody id="tablaBody"></tbody>
+
+    </table>
+
+</div>
+
+<script>
+
+    const form = document.getElementById('peliculaForm');
+    const tablaBody = document.getElementById('tablaBody');
+
+    cargarPeliculas();
+
+    // CARGAR PELÍCULAS
+    async function cargarPeliculas() {
+        const respuesta = await fetch('/peliculas');
+        const peliculas = await respuesta.json();
+
+        tablaBody.innerHTML = '';
+
+        peliculas.forEach(peli => {
+
+            tablaBody.innerHTML += `
+                <tr>
+                    <td>${peli.id}</td>
+                    <td>${peli.titulo}</td>
+                    <td>${peli.director}</td>
+                    <td>${peli.anio}</td>
+                    <td>${peli.genero}</td>
+
+                    <td>
+                        <button
+                            class="edit"
+                            onclick="prepararEdicion(
+                                ${peli.id},
+                                '${peli.titulo}',
+                                '${peli.director}',
+                                '${peli.anio}',
+                                '${peli.genero}'
+                            )"
+                        >
+                            Editar
+                        </button>
+
+                        <button
+                            class="delete"
+                            onclick="eliminarPelicula(${peli.id})"
+                        >
+                            Borrar
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+    }
+
+    // CREAR O ACTUALIZAR
+    form.addEventListener('submit', async (e) => {
+
+        e.preventDefault();
+
+        const id = document.getElementById('peliculaId').value;
+
+        const titulo = document.getElementById('titulo').value;
+        const director = document.getElementById('director').value;
+        const anio = document.getElementById('anio').value;
+        const genero = document.getElementById('genero').value;
+
+        const url = id
+            ? `/peliculas/${id}`
+            : '/peliculas';
+
+        const method = id
+            ? 'PUT'
+            : 'POST';
+
+        await fetch(url, {
+            method,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                titulo,
+                director,
+                anio,
+                genero
+            })
+        });
+
+        resetForm();
+
+        await cargarPeliculas();
+    });
+
+    // PREPARAR EDICIÓN
+    function prepararEdicion(
+        id,
+        titulo,
+        director,
+        anio,
+        genero
+    ) {
+        document.getElementById('peliculaId').value = id;
+        document.getElementById('titulo').value = titulo;
+        document.getElementById('director').value = director;
+        document.getElementById('anio').value = anio;
+        document.getElementById('genero').value = genero;
+        document.getElementById('btnGuardar').textContent = 'Actualizar';
+        document.getElementById('btnCancelar').style.display = 'inline-block';
+    }
+
+    // ELIMINAR
+    async function eliminarPelicula(id) {
+        if (confirm('¿Deseas eliminar esta película?')) {
+            await fetch(`/peliculas/${id}`, {
+                method: 'DELETE'
+            });
+            await cargarPeliculas();
+        }
+    }
+
+    // LIMPIAR FORMULARIO
+    function resetForm() {
+        form.reset();
+        document.getElementById('peliculaId').value = '';
+        document.getElementById('btnGuardar').textContent = 'Guardar';
+        document.getElementById('btnCancelar').style.display = 'none';
+    }
+
+</script>
+
+</body>
+</html>
