@@ -1,3 +1,4 @@
+SET NAMES utf8mb4;
 CREATE DATABASE IF NOT EXISTS base_empleados
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_unicode_ci;
@@ -13,6 +14,7 @@ CREATE TABLE IF NOT EXISTS personal
 )
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_unicode_ci;
+
 INSERT INTO personal (nombre, cargo, sueldo)
 VALUES ('Juan Perez', 'Gerente', 2500.00),
        ('Maria Garcia', 'Analista', 1800.50),
