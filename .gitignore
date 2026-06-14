@@ -26,3 +26,4 @@ Thumbs.db
 # VSCode
 .vscode/
 *.code-workspace
+/src/Clase_10/node_modules/
