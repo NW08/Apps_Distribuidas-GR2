@@ -25,6 +25,7 @@ ejecutarlo.
 | 12 | [`Node - Docker`](./src/Clase_08)                  | Imágenes, volúmenes y comunicación entre contenedores   | Node JS, Docker    |
 | 13 | [`Bimestral 01`](./src/Clase_09)                   | Examen Bimestral - Contenedores Docker                  | Docker, JS         |
 | 14 | [`MySQL Docker`](./src/Clase_10)                   | Consumo de base de datos con Docker                     | MySQL, Docker      |
+| 15 | [`APP Full Docker`](./src/Clase_11)                | Aplicación Web + Docker + MySQL                         | Docker, NodeJS     |
 
 ---
 
