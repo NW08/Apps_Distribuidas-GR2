@@ -27,3 +27,7 @@ Thumbs.db
 .vscode/
 *.code-workspace
 /src/Clase_10/node_modules/
+/src/Clase_11/backend/node_modules/
+/src/Clase_11/backend/.env
+/src/Clase_11/frontend/node_modules/
+/src/Clase_11/frontend/.env
