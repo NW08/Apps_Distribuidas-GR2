@@ -24,6 +24,7 @@ ejecutarlo.
 | 11 | [`Introducción a Docker`](./src/Clase_07/Docker)   | Inducción a Docker, contenedores e imágenes             | Docker Desktop     |
 | 12 | [`Node - Docker`](./src/Clase_08)                  | Imágenes, volúmenes y comunicación entre contenedores   | Node JS, Docker    |
 | 13 | [`Bimestral 01`](./src/Clase_09)                   | Examen Bimestral - Contenedores Docker                  | Docker, JS         |
+| 14 | [`MySQL Docker`](./src/Clase_10)                   | Consumo de base de datos con Docker                     | MySQL, Docker      |
 
 ---
 
