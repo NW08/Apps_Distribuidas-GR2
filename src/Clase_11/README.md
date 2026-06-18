@@ -1,6 +1,6 @@
 # Plataforma de Cursos: React + Node.js + MySQL Replicado || `CLASE 11 (10|06|2026)`
 
-> Link YT: [Girón María Paula & Ortiz Josué]()
+> Link YT: [Girón María Paula & Ortiz Josué](https://youtu.be/v2YzetNZg9I)
 
 Se hizo este proyecto como un ejercicio práctico avanzado para implementar una arquitectura distribuida mediante **Docker**, conformada por
 un total de 5 contenedores. El objetivo principal es desplegar un esquema de **Replicación MySQL (Maestro-Esclavos)** y consumirlo mediante
