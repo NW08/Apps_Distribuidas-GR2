@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Hoja de Vida - Peter Parker</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap"
+          rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0d1117;
+            --paper: #f5f1e6;
+            --crimson: #e23636;
+            --web-navy: #11264f;
+            --halftone: #c9cdd3;
+            --gold: #ffb703;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 48px 20px;
+            font-family: 'Inter', sans-serif;
+            color: var(--ink);
+            background: var(--web-navy);
+            background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1.4px);
+            background-size: 14px 14px;
+        }
+
+        .case-file {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--paper);
+            position: relative;
+            border-radius: 4px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+            border-top: 10px solid var(--crimson);
+            overflow: hidden;
+        }
+
+        /* sello de esquina, tipo prensa */
+        .stamp {
+            position: absolute;
+            top: 26px;
+            right: -46px;
+            background: var(--crimson);
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 11px;
+            letter-spacing: 2px;
+            padding: 6px 60px;
+            transform: rotate(38deg);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-transform: uppercase;
+            z-index: 3;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            padding: 38px 44px 28px;
+            border-bottom: 3px solid var(--ink);
+            position: relative;
+        }
+
+        .photo-frame {
+            flex: 0 0 auto;
+            width: 118px;
+            height: 118px;
+            border-radius: 50%;
+            border: 5px solid var(--web-navy);
+            outline: 3px solid var(--crimson);
+            outline-offset: 4px;
+            overflow: hidden;
+            background: linear-gradient(160deg, var(--crimson) 0%, var(--web-navy) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .photo-frame .badge {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 34px;
+            height: 34px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--paper);
+        }
+
+        .photo-frame .badge svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--ink);
+        }
+
+        .photo-note {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: #888;
+            text-align: center;
+            margin-top: 6px;
+            max-width: 118px;
+        }
+
+        .header-text h1 {
+            font-family: 'Bangers', cursive;
+            font-size: 2.8em;
+            margin: 0;
+            color: var(--web-navy);
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+
+        .header-text h1 span {
+            color: var(--crimson);
+        }
+
+        .tagline {
+            margin: 6px 0 4px;
+            font-weight: 600;
+            color: var(--crimson);
+            font-size: 1.05em;
+        }
+
+        .contact {
+            margin: 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78em;
+            color: #555;
+            letter-spacing: 0;
+        }
+
+        section {
+            padding: 0 44px;
+        }
+
+        .profile-section {
+            padding-top: 30px;
+        }
+
+        h2 {
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 3px;
+            color: var(--web-navy);
+            border-left: 5px solid var(--crimson);
+            padding-left: 10px;
+            margin: 0 0 16px;
+        }
+
+        .profile-section p {
+            font-size: 0.96em;
+            color: #333;
+        }
+
+        /* Timeline tipo "hilo" para experiencia */
+        .timeline {
+            position: relative;
+            padding-left: 26px;
+            margin-bottom: 36px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 6px;
+            bottom: 6px;
+            width: 2px;
+            background: repeating-linear-gradient(to bottom, var(--crimson) 0 6px, transparent 6px 11px);
+        }
+
+        .item {
+            position: relative;
+            margin-bottom: 22px;
+        }
+
+        .item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 4px;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--crimson);
+            border: 2px solid var(--paper);
+            box-shadow: 0 0 0 2px var(--web-navy);
+        }
+
+        .item h3 {
+            margin: 0 0 2px;
+            color: var(--web-navy);
+            font-size: 1.05em;
+        }
+
+        .item .org {
+            font-weight: 600;
+            color: var(--crimson);
+            font-size: 0.85em;
+        }
+
+        .item .date {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72em;
+            color: #888;
+            margin: 3px 0 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .item p {
+            margin: 0;
+            font-size: 0.92em;
+            color: #333;
+        }
+
+        .edu-grid {
+            display: grid;
+            grid-template-columns:1fr 1fr;
+            gap: 20px;
+            margin-bottom: 36px;
+        }
+
+        .edu-card {
+            background: #fff;
+            border: 1px solid #e3ddcb;
+            border-left: 4px solid var(--web-navy);
+            padding: 16px 18px;
+            border-radius: 3px;
+        }
+
+        .edu-card h3 {
+            margin: 0 0 4px;
+            font-size: 0.98em;
+            color: var(--web-navy);
+        }
+
+        .edu-card p {
+            margin: 0 0 6px;
+            font-size: 0.85em;
+            color: #444;
+        }
+
+        .edu-card .date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72em;
+            color: var(--crimson);
+            text-transform: uppercase;
+        }
+
+        .skills-section {
+            padding-bottom: 42px;
+        }
+
+        .skills-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skills-list li {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78em;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 3px;
+            color: #fff;
+            background: var(--web-navy);
+            position: relative;
+            letter-spacing: 0;
+        }
+
+        .skills-list li:nth-child(even) {
+            background: var(--crimson);
+        }
+
+        footer {
+            text-align: center;
+            padding: 14px;
+            background: var(--ink);
+            color: #777;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 560px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                padding: 32px 26px 24px;
+            }
+
+            .header-text h1 {
+                font-size: 2.2em;
+            }
+
+            section {
+                padding: 0 26px;
+            }
+
+            .edu-grid {
+                grid-template-columns:1fr;
+            }
+
+            .stamp {
+                right: -58px;
+                top: 18px;
+                font-size: 10px;
+                padding: 5px 56px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="case-file">
+    <div class="stamp">Expediente Personal</div>
+    <header>
+        <div>
+            <div class="photo-frame">
+                <img alt="Foto de perfil" height="118" src="./andrew.png" style="object-fit: cover; width: 100%; height: 100%;"
+                     width="118">
+
+                <span class="badge">
+          <svg viewBox="0 0 24 24"><path
+                  d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM4 9V7h2V5h2v2h2v2H8v2H6V9H4zm10-4h2v2h2v2h-2v2h-2V9h-2V7h2V5z"/></svg>
+        </span>
+            </div>
+        </div>
+        <div class="header-text">
+            <h1>Mary <span>Girón</span></h1>
+            <p class="tagline">Fotógrafa Freelance &amp; Asistente de Investigación</p>
+            <p class="contact">QUEENS, NUEVA YORK · PETER.PARKER@ESU.EDU · (555) 019-8273</p>
+        </div>
+    </header>
+
+    <section class="profile-section">
+        <h2>Perfil Profesional</h2>
+        <p>Estudiante de ciencias altamente motivado y ágil para resolver problemas, con experiencia comprobada
+            trabajando bajo presión extrema. Capacidad excepcional para reaccionar rápidamente a situaciones de
+            crisis (especialmente en las calles de Nueva York). Fotógrafa publicada con gran atención al detalle
+            y capacidad para conseguir ángulos únicos.</p>
+    </section>
+
+    <section>
+        <h2>Experiencia Laboral</h2>
+        <div class="timeline">
+            <div class="item">
+                <h3>Fotógrafa Freelance</h3>
+                <div class="org">Daily Bugle</div>
+                <div class="date">Enero 2023 — Presente</div>
+                <p>Captura de imágenes de acción en tiempo real, cubriendo eventos de última hora y crisis urbanas.
+                    Especialidad en fotografía en movimiento y desde grandes alturas. Entrega de material bajo
+                    tiempos de cierre estrictos fijados por J. Jonah Jameson.</p>
+            </div>
+            <div class="item">
+                <h3>Asistente de Laboratorio</h3>
+                <div class="org">Empire State University (ESU)</div>
+                <div class="date">Agosto 2022 — Diciembre 2022</div>
+                <p>Apoyo en investigaciones de biotecnología y física de fluidos. Desarrollo de polímeros adhesivos
+                    de alta resistencia y análisis de síntesis química.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Educación</h2>
+        <div class="edu-grid">
+            <div class="edu-card">
+                <h3>Grado en Biofísica</h3>
+                <p>Empire State University (ESU)</p>
+                <span class="date">En curso</span>
+            </div>
+            <div class="edu-card">
+                <h3>Bachillerato en Ciencias</h3>
+                <p>Midtown High School</p>
+                <span class="date">Graduada con Honores</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="skills-section">
+        <h2>Habilidades Destacadas</h2>
+        <ul class="skills-list">
+            <li>Fotografía de Acción</li>
+            <li>Biología Celular</li>
+            <li>Ingeniería de Polímeros (Redes)</li>
+            <li>Gestión de Crisis</li>
+            <li>Agilidad y Resolución Rápida</li>
+            <li>Desarrollo Web (Ironía de "Redes")</li>
+        </ul>
+    </section>
+
+    <footer>Documento generado para Peter B. Parker — Queens, NY</footer>
+</div>
+
+</body>
+</html>

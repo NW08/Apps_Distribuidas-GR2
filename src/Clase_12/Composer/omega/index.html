@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Hoja de Vida - Barry Allen</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap"
+          rel="stylesheet">
+    <style>
+        :root {
+            --lab-white: #f7f8fa;
+            --ink: #1f2630;
+            --flash-red: #c0021b;
+            --speed-gold: #ffd400;
+            --steel: #8a94a3;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 48px 20px;
+            font-family: 'Inter', sans-serif;
+            color: var(--ink);
+            background: var(--ink);
+            background-image: repeating-linear-gradient(100deg, rgba(255, 255, 255, 0.025) 0 2px, transparent 2px 60px);
+        }
+
+        .report {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--lab-white);
+            border-radius: 6px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .report::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: repeating-linear-gradient(120deg, var(--flash-red) 0 14px, var(--speed-gold) 14px 28px);
+        }
+
+        .case-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 36px;
+            background: var(--ink);
+            color: var(--steel);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .case-bar .speed {
+            color: var(--speed-gold);
+            font-weight: 600;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            padding: 36px 44px 26px;
+            border-bottom: 3px dashed var(--speed-gold);
+            position: relative;
+        }
+
+        /* marco de foto con estelas de velocidad */
+        .photo-rig {
+            flex: 0 0 auto;
+            position: relative;
+            width: 150px;
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .streaks {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 60px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 9px;
+        }
+
+        .streaks span {
+            height: 4px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, transparent, var(--flash-red));
+            transform: skewX(-18deg);
+        }
+
+        .streaks span:nth-child(1) {
+            width: 38px;
+        }
+
+        .streaks span:nth-child(2) {
+            width: 55px;
+            background: linear-gradient(90deg, transparent, var(--speed-gold));
+        }
+
+        .streaks span:nth-child(3) {
+            width: 44px;
+        }
+
+        .streaks span:nth-child(4) {
+            width: 28px;
+            background: linear-gradient(90deg, transparent, var(--speed-gold));
+        }
+
+        .photo-frame {
+            width: 116px;
+            height: 116px;
+            border-radius: 50%;
+            border: 4px solid var(--flash-red);
+            outline: 3px solid var(--speed-gold);
+            outline-offset: 3px;
+            overflow: hidden;
+            background: #e9ebee;
+            position: relative;
+            z-index: 2;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .header-text h1 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: 2.7em;
+            margin: 0;
+            color: var(--flash-red);
+            font-style: italic;
+            letter-spacing: -0.5px;
+        }
+
+        .header-text .tagline {
+            margin: 6px 0 0;
+            font-weight: 600;
+            color: #444;
+            font-size: 1.02em;
+        }
+
+        .header-text .contact {
+            margin: 8px 0 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72em;
+            color: var(--steel);
+            letter-spacing: 0;
+        }
+
+        section {
+            padding: 0 44px;
+        }
+
+        .profile-section {
+            padding-top: 28px;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 1.05em;
+            letter-spacing: 2px;
+            color: #f39c12;
+            margin: 0 0 16px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #ecedf0;
+            display: inline-block;
+        }
+
+        .profile-section p {
+            font-size: 0.96em;
+            color: #3a4350;
+        }
+
+        /* divisor tipo "pulso" entre secciones */
+        .pulse-divider {
+            width: 100%;
+            height: 22px;
+            margin: 4px 0 22px;
+        }
+
+        .item {
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 16px;
+            border-left: 3px solid #ecedf0;
+        }
+
+        .item h3 {
+            margin: 0 0 3px;
+            color: var(--flash-red);
+            font-size: 1.12em;
+        }
+
+        .item .org {
+            font-weight: 600;
+            color: #555;
+            font-size: 0.84em;
+        }
+
+        .item .date {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: var(--steel);
+            font-size: 0.72em;
+            text-transform: uppercase;
+            margin: 4px 0 8px;
+            letter-spacing: 1px;
+        }
+
+        .item p {
+            margin: 0;
+            font-size: 0.92em;
+            color: #3a4350;
+        }
+
+        .edu-section {
+            padding-bottom: 8px;
+        }
+
+        .skills-section {
+            padding-bottom: 42px;
+        }
+
+        .skills-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skills-list li {
+            background: var(--flash-red);
+            color: #fff;
+            padding: 9px 16px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-style: italic;
+            font-weight: 600;
+            box-shadow: 2px 2px 0 var(--speed-gold);
+            transition: transform 0.2s;
+        }
+
+        .skills-list li:nth-child(even) {
+            background: var(--ink);
+            box-shadow: 2px 2px 0 var(--flash-red);
+        }
+
+        .skills-list li:hover {
+            transform: translateX(4px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 13px;
+            background: var(--ink);
+            color: #5b6473;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 560px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 24px 22px;
+            }
+
+            .photo-rig {
+                justify-content: center;
+            }
+
+            .streaks {
+                display: none;
+            }
+
+            .header-text h1 {
+                font-size: 2.1em;
+            }
+
+            section {
+                padding: 0 24px;
+            }
+
+            .case-bar {
+                flex-direction: column;
+                gap: 4px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="report">
+    <div class="case-bar">
+        <span>CCPD · LABORATORIO FORENSE</span>
+        <span class="speed">TIEMPO DE PROCESO: 0.004s</span>
+    </div>
+
+    <header>
+        <div>
+            <div class="photo-rig">
+                <div class="streaks">
+                    <span></span><span></span><span></span><span></span>
+                </div>
+                <div class="photo-frame">
+                    <img alt="Foto de perfil" height="116" src="./barry.png" width="116">
+                </div>
+            </div>
+        </div>
+        <div class="header-text">
+            <h1>Jossu Ortiz</h1>
+            <p class="tagline">Científico Forense / Analista de Escenas del Crimen</p>
+            <p class="contact">CENTRAL CITY · BALLEN@CCPD.GOV · ANALÍTICAS DE LABORATORIO CON TIEMPOS DE ENTREGA RÉCORD</p>
+        </div>
+    </header>
+
+    <section class="profile-section">
+        <h2>Perfil Profesional</h2>
+        <p>Investigador forense altamente analítico con una capacidad sin precedentes para procesar información,
+            analizar evidencia química y resolver casos a velocidades que superan los estándares del departamento.
+            Aunque suelo llegar tarde a los compromisos sociales, soy consistentemente el primero en llegar a la
+            escena del crimen y el más rápido en entregar resultados de laboratorio.</p>
+    </section>
+
+    <svg class="pulse-divider" preserveAspectRatio="none" viewBox="0 0 800 22">
+        <polyline fill="none"
+                  points="0,11 60,11 75,2 90,20 105,11 250,11 265,4 280,18 295,11 800,11" stroke="#e3c200" stroke-width="2"/>
+    </svg>
+
+    <section>
+        <h2>Experiencia Laboral</h2>
+        <div class="item">
+            <h3>Investigador Forense</h3>
+            <div class="org">Central City Police Department (CCPD)</div>
+            <div class="date">2014 — Presente</div>
+            <p>Análisis de salpicaduras de sangre, balística, huellas dactilares y composición química de materiales
+                desconocidos. Responsable de limpiar un retraso de meses en pruebas de laboratorio en una sola tarde.
+                Colaboración directa con detectives para la reconstrucción de eventos criminales complejos.</p>
+        </div>
+        <div class="item">
+            <h3>Consultor Científico Especial</h3>
+            <div class="org">S.T.A.R. Labs</div>
+            <div class="date">2014 — Presente</div>
+            <p>Pruebas avanzadas de telemetría, aerodinámica y resistencia a la fricción térmica. Análisis de energía
+                cinética y dinámica de fluidos a velocidades supersónicas. Monitoreo de actividad metahumana en el
+                área metropolitana de Central City.</p>
+        </div>
+    </section>
+
+    <section class="edu-section">
+        <h2>Educación</h2>
+        <div class="item">
+            <h3>Licenciatura (B.S.) en Química y Criminología</h3>
+            <div class="org">Central City University</div>
+            <div class="date">Doble titulación — Graduado con Honores</div>
+        </div>
+    </section>
+
+    <section class="skills-section">
+        <h2>Habilidades Técnicas y Metahumanas</h2>
+        <ul class="skills-list">
+            <li>Química Forense</li>
+            <li>Lectura de Alta Velocidad (Speed-reading)</li>
+            <li>Física de Partículas</li>
+            <li>Patrones de salpicadura de sangre</li>
+            <li>Mecánica Cuántica (Nivel Práctico)</li>
+            <li>Metabolismo Acelerado</li>
+        </ul>
+    </section>
+
+    <footer>Documento generado para Bartholomew H. Allen — Central City</footer>
+</div>
+
+</body>
+</html>
