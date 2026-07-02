@@ -26,7 +26,7 @@ ejecutarlo.
 | 13 | [`Bimestral 01`](./src/Clase_09)                   | Examen Bimestral - Contenedores Docker                  | Docker, JS         |
 | 14 | [`MySQL Docker`](./src/Clase_10)                   | Consumo de base de datos con Docker                     | MySQL, Docker      |
 | 15 | [`Replicación MySQL`](./src/Clase_11)              | Aplicación Web + Docker + MySQL                         | Docker, NodeJS     |
-| 16 | [`Balanceo de Carga`](./src/Clase_12/Composer)     | Balanceo de carga entre servidores                      | NGINX, Docker      |
+| 16 | [`Balanceo de Carga`](src/Clase_12)                | Balanceo de carga entre servidores                      | NGINX, Docker      |
 
 ---
 
