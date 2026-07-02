@@ -1,0 +1,91 @@
+services:
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app1
+      - app2
+    networks:
+      - app_web
+
+  app1:
+    build:
+      context: ./app1
+    container_name: app1
+    hostname: app1_host
+    volumes:
+      - ./app1/src/db:/scripts
+    networks:
+      - aurelio
+      - app_web
+    depends_on:
+      - mysql-master
+
+  app2:
+    build:
+      context: ./app2
+    container_name: app2
+    hostname: app2_host
+    volumes:
+      - ./app2/src/db:/scripts
+    networks:
+      - aurelio
+      - app_web
+    depends_on:
+      - mysql-master
+
+  mysql-master:
+    image: mysql:5.7
+    container_name: mysql-master
+    hostname: mysql_master
+    entrypoint:
+      - bash
+      - -c
+      - "cp /tmp/replication.cnf /etc/mysql/conf.d/replication.cnf && chmod 644 /etc/mysql/conf.d/replication.cnf && exec docker-entrypoint.sh mysqld"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
+      MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST:-%}
+    volumes:
+      - mysql_master_data:/var/lib/mysql
+      - ./mysql/master.cnf:/tmp/replication.cnf
+      - ./app1/src/db:/scripts
+    ports:
+      - "3306:3306"
+    networks:
+      - aurelio
+
+  mysql-slave:
+    image: mysql:5.7
+    container_name: mysql-slave
+    hostname: mysql_slave
+    entrypoint:
+      - bash
+      - -c
+      - "cp /tmp/replication.cnf /etc/mysql/conf.d/replication.cnf && chmod 644 /etc/mysql/conf.d/replication.cnf && exec docker-entrypoint.sh mysqld"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
+      MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST:-%}
+    volumes:
+      - mysql_slave_data:/var/lib/mysql
+      - ./mysql/slave.cnf:/tmp/replication.cnf
+    ports:
+      - "3307:3306"
+    networks:
+      - aurelio
+    depends_on:
+      - mysql-master
+
+networks:
+  app_web:
+    driver: bridge
+  aurelio:
+    driver: bridge
+
+volumes:
+  mysql_master_data:
+  mysql_slave_data:
+

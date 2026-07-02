@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Selecciones FIFA</title>
+<style>
+    :root {
+        --bg-color: #141414;
+        --text-color: #ffffff;
+        --accent-color: #00a651;
+        --card-bg: #2f2f2f;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        margin: 0;
+        padding: 20px;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    h1 {
+        margin: 0;
+        color: var(--accent-color);
+    }
+
+    button {
+        background-color: var(--accent-color);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-weight: bold;
+        border-radius: 4px;
+    }
+
+    button:hover {
+        opacity: 0.9;
+    }
+
+    .form-container {
+        background-color: var(--card-bg);
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        display: none;
+    }
+
+    label {
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        background: #333;
+        border: 1px solid #444;
+        color: white;
+        border-radius: 4px;
+    }
+
+    .movies-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 20px;
+    }
+
+    .movie-card {
+        background-color: var(--card-bg);
+        border-radius: 8px;
+        padding: 15px;
+        transition: transform 0.2s;
+    }
+
+    .movie-card:hover {
+        transform: scale(1.03);
+    }
+
+    .movie-title {
+        font-size: 1.3rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: var(--accent-color);
+    }
+
+    .movie-meta {
+        color: #ccc;
+        line-height: 1.6;
+    }
+
+    .card-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .btn-edit {
+        background-color: #555;
+    }
+
+    .btn-delete {
+        background-color: transparent;
+        border: 1px solid #ff4444;
+        color: #ff4444;
+    }
+</style>
+
+</head>
+<body>
+
+<header>
+    <h1>SELECCIONES FIFA</h1>
+    <button onclick="toggleForm()">+ Agregar Selección</button>
+</header>
+
+<div class="form-container" id="movieFormContainer">
+    <h2 id="formTitle">Agregar Selección</h2>
+
+<input id="movieId" type="hidden">
+
+<label for="nombre">País</label>
+<input id="nombre" type="text" required>
+
+<label for="entrenador">Entrenador</label>
+<input id="entrenador" type="text" required>
+
+<label for="ranking_fifa">Ranking FIFA</label>
+<input id="ranking_fifa" type="number" required>
+
+<label for="participaciones">Participaciones</label>
+<input id="participaciones" type="number" required>
+
+<label for="campeonatos">Campeonatos</label>
+<input id="campeonatos" type="number" required>
+
+<button onclick="saveEntrenador()">Guardar</button>
+<button onclick="toggleForm()" style="background-color:#555;">
+    Cancelar
+</button>
+
+</div>
+
+<div class="movies-grid" id="moviesGrid"></div>
+
+<script>
+    const API_URL = '/api/entrenadores';
+
+    document.addEventListener('DOMContentLoaded', fetchEntrenadores);
+
+    async function fetchEntrenadores() {
+        try {
+            const res = await fetch(API_URL);
+            const entrenadores = await res.json();
+
+            const grid = document.getElementById('moviesGrid');
+            grid.innerHTML = '';
+
+            entrenadores.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'movie-card';
+
+                card.innerHTML = `
+                    <div class="movie-title">${item.nombre}</div>
+
+                    <div class="movie-meta">
+                        <strong>Entrenador:</strong> ${item.entrenador}<br>
+                        <strong>Ranking FIFA:</strong> ${item.ranking_fifa}<br>
+                        <strong>Participaciones:</strong> ${item.participaciones}<br>
+                        <strong>Campeonatos:</strong> ${item.campeonatos}
+                    </div>
+
+                    <div class="card-actions">
+                        <button
+                            class="btn-edit"
+                            onclick="editEntrenador(
+                                ${item.id},
+                                '${item.nombre.replace(/'/g, "\\'")}',
+                                '${item.entrenador.replace(/'/g, "\\'")}',
+                                ${item.ranking_fifa},
+                                ${item.participaciones},
+                                ${item.campeonatos}
+                            )">
+                            Editar
+                        </button>
+
+                        <button
+                            class="btn-delete"
+                            onclick="deleteEntrenador(${item.id})">
+                            Eliminar
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async function saveEntrenador() {
+        const id = document.getElementById('movieId').value;
+
+        const entrenador = {
+            nombre: document.getElementById('nombre').value,
+            entrenador: document.getElementById('entrenador').value,
+            ranking_fifa: Number(document.getElementById('ranking_fifa').value),
+            participaciones: Number(document.getElementById('participaciones').value),
+            campeonatos: Number(document.getElementById('campeonatos').value)
+        };
+
+        const method = id ? 'PUT' : 'POST';
+        const url = id ? `${API_URL}/${id}` : API_URL;
+
+        await fetch(url, {
+            method,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(entrenador)
+        });
+
+        toggleForm(true);
+        fetchEntrenadores();
+    }
+
+    async function deleteEntrenador(id) {
+        if (!confirm('¿Desea eliminar esta selección?')) {
+            return;
+        }
+
+        await fetch(`${API_URL}/${id}`, {
+            method: 'DELETE'
+        });
+
+        fetchEntrenadores();
+    }
+
+    function editEntrenador(
+        id,
+        nombre,
+        entrenador,
+        ranking_fifa,
+        participaciones,
+        campeonatos
+    ) {
+        document.getElementById('movieId').value = id;
+        document.getElementById('nombre').value = nombre;
+        document.getElementById('entrenador').value = entrenador;
+        document.getElementById('ranking_fifa').value = ranking_fifa;
+        document.getElementById('participaciones').value = participaciones;
+        document.getElementById('campeonatos').value = campeonatos;
+
+        document.getElementById('formTitle').innerText =
+            'Editar Selección';
+
+        document.getElementById('movieFormContainer').style.display =
+            'block';
+    }
+
+    function toggleForm(forceClose = false) {
+        const form = document.getElementById('movieFormContainer');
+
+        if (forceClose || form.style.display === 'block') {
+            form.style.display = 'none';
+
+            document.getElementById('movieId').value = '';
+            document.getElementById('nombre').value = '';
+            document.getElementById('entrenador').value = '';
+            document.getElementById('ranking_fifa').value = '';
+            document.getElementById('participaciones').value = '';
+            document.getElementById('campeonatos').value = '';
+
+            document.getElementById('formTitle').innerText =
+                'Agregar Selección';
+        } else {
+            form.style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>
