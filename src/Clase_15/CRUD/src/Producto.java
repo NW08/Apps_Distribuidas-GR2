@@ -1,4 +1,4 @@
-package Clase_15.src;
+package Clase_15.CRUD.src;
 
 import jakarta.persistence.*;
 import lombok.Data;
