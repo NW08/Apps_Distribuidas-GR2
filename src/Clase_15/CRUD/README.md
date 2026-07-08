@@ -1,7 +1,7 @@
 # API REST Farmacia: Spring Boot + MySQL + Docker || `CLASE 15 (08|07|2026)`
 
-Proyecto introductorio de una **API REST con Spring Boot** que consume información desde una base de datos **MySQL** contenerizada con *
-*Docker**. Expone un CRUD completo sobre el catálogo de productos de una farmacia (tabla `productos`), usando **Spring Data JPA** para el
+Proyecto introductorio de una **API REST con Spring Boot** que consume información desde una base de datos **MySQL** contenerizada con Docker.
+Expone un CRUD completo sobre el catálogo de productos de una farmacia (tabla `productos`), usando **Spring Data JPA** para el
 acceso a datos.
 
 > **Cambio respecto a la versión anterior:** la API pasó de ser solo de lectura (GET) a un CRUD completo — se agregaron `POST`, `PUT` y
