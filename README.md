@@ -29,6 +29,7 @@ ejecutarlo.
 | 16 | [`Balanceo de Carga`](src/Clase_12)                | Balanceo de carga entre servidores                      | NGINX, Docker      |
 | 17 | [`Prueba 02`](src/Clase_13)                        | Carga, replicación y balanceo                           | MySQL, Nginx       |
 | 18 | [`SpringBoot`](src/Clase_14)                       | Introducción Spring + Docker                            | Docker, SpringBoot |
+| 19 | [`SpringBoot CRUD`](src/Clase_15)                  | CRUD actualizado + SpringBoot                           | SpringBoot, CRUD   |
 
 ---
 
