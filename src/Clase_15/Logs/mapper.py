@@ -1,27 +1,44 @@
+import os
 import sys
+from typing import Optional, Tuple
 
-INICIO_LABORAL = "08:00:00"
-FIN_LABORAL = "18:00:00"
+START_TIME = "08:00:00"
+END_TIME = "18:00:00"
 
-filename = sys.argv[1]
-with open(filename, "r") as f, open(f"{filename}.out", "w") as out:
-    for line in f:
-        line = line.strip()
-        if not line:
-            continue
 
-        partes = line.split()
-        if len(partes) < 3:
-            continue
+def parse_log_line(line: str) -> Optional[Tuple[str, bool]]:
+    line = line.strip()
+    if not line:
+        return None
 
-        hora = partes[1]
-        campo_usuario = partes[2]
+    parts = line.split()
+    if len(parts) < 3:
+        return None
 
-        if ":" not in campo_usuario:
-            continue
-        usuario = campo_usuario.split(":", 1)[1]
+    time_str, user_field = parts[1], parts[2]
+    if ":" not in user_field:
+        return None
 
-        fuera_de_horario = hora < INICIO_LABORAL or hora > FIN_LABORAL
+    user = user_field.split(":", 1)[1]
+    is_off_hours = time_str < START_TIME or time_str > END_TIME
+    return user, is_off_hours
 
-        if fuera_de_horario:
-            out.write(f"{usuario}\t1\n")
+
+def process_log(filename: str):
+    if not os.path.exists(filename):
+        return
+
+    out_file = f"{filename}.out"
+    with open(filename, "r") as f, open(out_file, "w") as out:
+        for line in f:
+            parsed = parse_log_line(line)
+            if parsed is None:
+                continue
+            user, is_off_hours = parsed
+            if is_off_hours:
+                out.write(f"{user}\t1\n")
+
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        process_log(sys.argv[1])

@@ -10,27 +10,48 @@ services:
     volumes:
       - .:/app
     command: [ "python", "mapper.py", "splits/part_00.txt" ]
+    depends_on:
+      preparador:
+        condition: service_completed_successfully
 
   mapper2:
     build: .
     volumes:
       - .:/app
     command: [ "python", "mapper.py", "splits/part_01.txt" ]
+    depends_on:
+      preparador:
+        condition: service_completed_successfully
 
   mapper3:
     build: .
     volumes:
       - .:/app
     command: [ "python", "mapper.py", "splits/part_02.txt" ]
+    depends_on:
+      preparador:
+        condition: service_completed_successfully
 
   mapper4:
     build: .
     volumes:
       - .:/app
     command: [ "python", "mapper.py", "splits/part_03.txt" ]
+    depends_on:
+      preparador:
+        condition: service_completed_successfully
 
   reducer:
     build: .
     volumes:
       - .:/app
     command: [ "python", "reducer.py" ]
+    depends_on:
+      mapper1:
+        condition: service_completed_successfully
+      mapper2:
+        condition: service_completed_successfully
+      mapper3:
+        condition: service_completed_successfully
+      mapper4:
+        condition: service_completed_successfully
