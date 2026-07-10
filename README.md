@@ -30,6 +30,8 @@ ejecutarlo.
 | 17 | [`Prueba 02`](src/Clase_13)                        | Carga, replicación y balanceo                           | MySQL, Nginx       |
 | 18 | [`SpringBoot`](src/Clase_14)                       | Introducción Spring + Docker                            | Docker, SpringBoot |
 | 19 | [`SpringBoot CRUD`](src/Clase_15/CRUD)             | CRUD actualizado + SpringBoot                           | SpringBoot, CRUD   |
+| 20 | [`MapReduce`](src/Clase_15/MapReduce)              | Introducción a MapReduce con scripts .py                | Python, Docker     |
+| 21 | [`MapReduce (Logs)`](src/Clase_15/Logs)            | Procesamiento de logs con MapReduce                     | Shell, Python      |
 
 ---
 
