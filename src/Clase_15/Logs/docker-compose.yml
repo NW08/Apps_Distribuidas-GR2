@@ -1,0 +1,36 @@
+services:
+  preparador:
+    build: .
+    volumes:
+      - .:/app
+    command: [ "bash", "./split_logs.sh" ]
+
+  mapper1:
+    build: .
+    volumes:
+      - .:/app
+    command: [ "python", "mapper.py", "splits/part_00.txt" ]
+
+  mapper2:
+    build: .
+    volumes:
+      - .:/app
+    command: [ "python", "mapper.py", "splits/part_01.txt" ]
+
+  mapper3:
+    build: .
+    volumes:
+      - .:/app
+    command: [ "python", "mapper.py", "splits/part_02.txt" ]
+
+  mapper4:
+    build: .
+    volumes:
+      - .:/app
+    command: [ "python", "mapper.py", "splits/part_03.txt" ]
+
+  reducer:
+    build: .
+    volumes:
+      - .:/app
+    command: [ "python", "reducer.py" ]
