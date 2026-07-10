@@ -25,11 +25,25 @@ def _parse_line(line: str):
 
 
 def write_report(final_counts: Counter, output_path: str = "resultado.md"):
+    total_accesses = sum(final_counts.values())
+
     with open(output_path, "w") as out:
-        out.write("| User | Off-hours accesses |\n")
-        out.write("|---|---|\n")
-        for user, count in sorted(final_counts.items()):
-            out.write(f"| {user} | {count} |\n")
+        out.write("# Reporte de Accesos Fuera de Horario\n\n")
+        out.write("## Estadísticas Generales\n")
+        out.write(f"- **Total de accesos fuera de horario:** {total_accesses}\n")
+        if final_counts:
+            most_frequent_user, max_count = final_counts.most_common(1)[0]
+            out.write(
+                f"- **Usuario con más incidentes:** {most_frequent_user} ({max_count})\n"
+            )
+        out.write("\n## Desglose por Usuario\n")
+        out.write("| Usuario | Accesos fuera de horario | % del Total |\n")
+        out.write("|---|---|---|\n")
+        for user, count in sorted(
+                final_counts.items(), key=lambda x: x[1], reverse=True
+        ):
+            percentage = (count / total_accesses * 100) if total_accesses > 0 else 0
+            out.write(f"| {user} | {count} | {percentage:.2f}% |\n")
 
 
 def reduce_results(splits_dir: str = "splits"):
