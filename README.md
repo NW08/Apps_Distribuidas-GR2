@@ -32,6 +32,7 @@ ejecutarlo.
 | 19 | [`SpringBoot CRUD`](src/Clase_15/CRUD)             | CRUD actualizado + SpringBoot                           | SpringBoot, CRUD   |
 | 20 | [`MapReduce`](src/Clase_15/MapReduce)              | Introducción a MapReduce con scripts .py                | Python, Docker     |
 | 21 | [`MapReduce (Logs)`](src/Clase_15/Logs)            | Procesamiento de logs con MapReduce                     | Shell, Python      |
+| 22 | [`Bimestral 02`](src/Clase_16)                     | Examen Bimestral - MapReduce, Nginx, Docker             | SpringBoot, Python |
 
 ---
 
